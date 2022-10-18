@@ -1,10 +1,12 @@
 {
-  "name": "vite-project",
-  "version": "0.0.0",
+  "name": "most-people",
+  "version": "0.0.1",
   "scripts": {
     "start": "vite --host 0.0.0.0 --port 2009",
     "build": "run-p type-check build-only",
+    "build-only": "vite build",
     "preview": "vite preview --host 0.0.0.0 --port 2010",
+    "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {

@@ -12,4 +12,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
+  rules: {
+    'no-console': 'off',
+    // 'no-debugger': 'off',
+    'vue/multi-word-component-names': 'off',
+    // '@typescript-eslint/no-empty-function': 'off',
+    // '@typescript-eslint/no-explicit-any': 'off',
+  },
 }

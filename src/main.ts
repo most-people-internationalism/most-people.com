@@ -2,13 +2,24 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './app.vue'
-import router from './router'
 
 import './assets/main.css'
 
+import { createRouter, createWebHistory } from 'vue-router'
+import { setupLayouts } from 'virtual:generated-layouts'
+import generatedRoutes from 'virtual:generated-pages'
+
+const routes = setupLayouts(generatedRoutes)
+
 const app = createApp(App)
+const env = import.meta.env
 
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+app
+  .use(
+    createRouter({
+      history: createWebHistory(env.BASE_URL),
+      routes,
+    }),
+  )
+  .use(createPinia())
+  .mount('#app')

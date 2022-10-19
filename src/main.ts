@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 
 import App from './app.vue'
 
-import './assets/main.css'
+import './assets/main.scss'
 
 import { createRouter, createWebHistory } from 'vue-router'
 import generatedRoutes from 'virtual:generated-pages'

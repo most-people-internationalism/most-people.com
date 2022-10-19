@@ -18,7 +18,10 @@ export default defineConfig({
     Vue({ include: [/\.vue$/, /\.md$/] }),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
-    Pages({ extensions: ['vue', 'md'] }),
+    Pages({
+      extensions: ['vue', 'md'],
+      routeStyle: 'nuxt',
+    }),
 
     // https://github.com/antfu/vite-plugin-vue-markdown
     Markdown({
@@ -26,7 +29,7 @@ export default defineConfig({
       // headEnabled: true,
       markdownItSetup(md) {
         md.use(Shiki, {
-          theme: 'github-light',
+          theme: 'solarized-light',
         })
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),

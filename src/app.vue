@@ -1,85 +1,40 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/hello-world.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="/favicon.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <hello-world msg="动员群众 解决难题" />
-
-      <nav>
-        <router-link to="/">Home</router-link>
-        <router-link to="/about">About</router-link>
-      </nav>
+  <div class="mp-header">
+    <div class="left">
+      <router-link to="/">调查</router-link>
+      <router-link to="/notes">记录</router-link>
     </div>
-  </header>
+
+    <div class="right">
+      <router-link to="/people">为人民服务</router-link>
+      <router-link to="/me">我</router-link>
+    </div>
+  </div>
 
   <router-view />
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+</script>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
+<style lang="scss">
+.mp-header {
+  display: flex;
+  justify-content: space-between;
+  > .left {
     text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  }
+  > .center {
+    text-align: center;
+  }
+  > .right {
+    text-align: right;
+  }
+  > div {
+    a + a {
+      margin-left: 10px;
+    }
   }
 }
 </style>

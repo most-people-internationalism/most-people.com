@@ -5,10 +5,10 @@ import HelloWorld from './components/hello-world.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img alt="Vue logo" class="logo" src="/favicon.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <hello-world msg="You did it!" />
+      <hello-world msg="动员群众 解决难题" />
 
       <nav>
         <router-link to="/">Home</router-link>

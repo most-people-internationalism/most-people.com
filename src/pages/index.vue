@@ -9,7 +9,7 @@
         <icon name="back" />
       </div> -->
       <div @click="bindLogo" class="center" :class="{ outWall: engine.out_wall && !user.out_wall }">
-        <icon-app :name="engine.icon || 'shalou'" />
+        <icon-app :name="engine.icon" />
         <span>{{ engine.name }}</span>
       </div>
       <!-- <div

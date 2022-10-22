@@ -4,6 +4,4 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const { t: $t } = useI18n()
-</script>
+<script setup lang="ts"></script>

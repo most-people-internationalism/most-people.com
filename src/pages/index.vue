@@ -1,15 +1,15 @@
 <template>
   <div id="page-index">
     <div class="logo">
-      <div
+      <!-- <div
         class="btn left"
         @click="bindPrev"
         :style="{ visibility: engine.index <= 0 ? 'hidden' : 'visible' }"
       >
-        <!-- <icon name="back" /> -->
+        <icon name="back" />
       </div>
       <div @click="bindLogo" class="center" :class="{ outWall: engine.outWall && !user.outWall }">
-        <!-- <icon-app :name="engine.icon || 'shalou'" /> -->
+        <icon-app :name="engine.icon || 'shalou'" />
         <span>{{ engine.name }}</span>
       </div>
       <div
@@ -17,19 +17,16 @@
         @click="bindNext"
         :style="{ visibility: engine.index >= engine.list.length - 1 ? 'hidden' : 'visible' }"
       >
-        <!-- <icon name="next" /> -->
-      </div>
+        <icon name="next" />
+      </div> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import engines from '@/assets/engines.json'
-console.log('🌊', engines)
-
-const user = useUserStore()
-const engine = useEngineStore()
-console.log('🌊', user, engine)
+// const user = useUserStore()
+const { engine } = useEngineStore()
+console.log('🌊', engine)
 
 const bindPrev = () => {}
 const bindNext = () => {}

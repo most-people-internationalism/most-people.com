@@ -7,12 +7,12 @@
         :style="{ visibility: engine.index <= 0 ? 'hidden' : 'visible' }"
       >
         <icon name="back" />
-      </div>
-      <div @click="bindLogo" class="center" :class="{ outWall: engine.outWall && !user.outWall }">
+      </div> -->
+      <div @click="bindLogo" class="center" :class="{ outWall: engine.out_wall && !user.out_wall }">
         <icon-app :name="engine.icon || 'shalou'" />
         <span>{{ engine.name }}</span>
       </div>
-      <div
+      <!-- <div
         class="btn right"
         @click="bindNext"
         :style="{ visibility: engine.index >= engine.list.length - 1 ? 'hidden' : 'visible' }"
@@ -24,9 +24,8 @@
 </template>
 
 <script setup lang="ts">
-// const user = useUserStore()
+const user = useUserStore()
 const { engine } = useEngineStore()
-console.log('🌊', engine)
 
 const bindPrev = () => {}
 const bindNext = () => {}

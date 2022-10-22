@@ -2,7 +2,7 @@ export const useUserStore = defineStore({
   id: 'userStore',
   state: () => {
     return {
-      outWall: false,
+      out_wall: false,
     }
   },
   actions: {},

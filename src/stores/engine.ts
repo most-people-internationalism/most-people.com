@@ -21,11 +21,11 @@ export const useEngineStore = defineStore({
       id: 0,
     }
   },
-  actions: {},
   getters: {
     engine(): Engine {
       const engine = engines.find((e) => e.id === this.id)
       return engine || engines[0]
     },
   },
+  actions: {},
 })

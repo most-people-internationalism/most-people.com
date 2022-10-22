@@ -2,18 +2,18 @@
   <div class="mp-header">
     <div class="left">
       <router-link to="/" class="active">
-        <span>调查</span>
+        <span>{{ $t('Survey') }}</span>
       </router-link>
       <router-link to="/notes">
-        <span>记录</span>
+        <span>{{ $t('Notes') }}</span>
       </router-link>
     </div>
 
     <div class="right">
       <router-link to="/people">
-        <span>为人民服务</span>
+        <span>{{ $t('ServePeople') }}</span>
       </router-link>
-      <router-link to="/me" class="avatar">
+      <router-link to="/me" class="avatar" @click="toggleLocales">
         <img src="/avatar.jpeg" alt="avatar" />
       </router-link>
     </div>
@@ -21,7 +21,15 @@
   <router-view class="page" />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { availableLocales, locale } = useI18n()
+
+const toggleLocales = () => {
+  // change to some real logic
+  const locales = availableLocales
+  locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
+}
+</script>
 
 <style lang="scss">
 #app {

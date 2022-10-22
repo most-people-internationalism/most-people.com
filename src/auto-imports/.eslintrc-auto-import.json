@@ -28,6 +28,7 @@
     "mapStores": true,
     "mapWritableState": true,
     "markRaw": true,
+    "mostPeople": true,
     "nextTick": true,
     "onActivated": true,
     "onBeforeMount": true,

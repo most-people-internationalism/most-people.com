@@ -30,4 +30,8 @@ const { engine } = useEngineStore()
 const bindPrev = () => {}
 const bindNext = () => {}
 const bindLogo = () => {}
+
+useHead({
+  title: '动员群众，解决难题',
+})
 </script>

@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
-import App from './app.vue'
+import { createHead } from '@vueuse/head'
+import { createRouter, createWebHistory } from 'vue-router'
+import generatedRoutes from 'virtual:generated-pages'
 
 import './assets/main.scss'
 
-import { createRouter, createWebHistory } from 'vue-router'
-import generatedRoutes from 'virtual:generated-pages'
+import App from './app.vue'
 
 const routes = generatedRoutes
 
@@ -21,4 +21,5 @@ app
     }),
   )
   .use(createPinia())
+  .use(createHead())
   .mount('#app')

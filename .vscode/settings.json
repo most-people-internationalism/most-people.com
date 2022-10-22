@@ -1,3 +1,15 @@
 {
-  "cSpell.words": ["noopener", "rushstack", "Shiki"]
+  "cSpell.words": [
+    "composables",
+    "noopener",
+    "rushstack",
+    "Shiki",
+    "unplugin",
+    "vueuse"
+  ],
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

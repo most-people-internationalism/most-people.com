@@ -13,21 +13,20 @@
       <router-link to="/people">
         <span>为人民服务</span>
       </router-link>
-      <div class="avatar">
+      <router-link to="/me" class="avatar">
         <img src="/avatar.jpeg" alt="avatar" />
-      </div>
+      </router-link>
     </div>
   </div>
-
-  <router-view />
+  <router-view class="page" />
 </template>
 
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss">
 #app {
+  padding: 0 16px;
+
   > .mp-header {
     display: flex;
     justify-content: space-between;

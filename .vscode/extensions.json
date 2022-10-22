@@ -1,9 +1,10 @@
 {
   "recommendations": [
-    "Vue.volar",
-    "Vue.vscode-typescript-vue-plugin",
-    "dbaeumer.vscode-eslint",
+    "vue.volar",
+    "vue.vscode-typescript-vue-plugin",
     "lokalise.i18n-ally",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "dbaeumer.vscode-eslint"
   ]
 }

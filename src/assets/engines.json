@@ -1,6 +1,6 @@
 [
   {
-    "name": "动员群众，解决难题",
+    "name": "MostPeople",
     "color": "#e30002",
     "pc": "https://www.sogou.com/web?query=#{keyword}",
     "mobile": "https://m.sogou.com/web/searchList.jsp?keyword=#{keyword}",
@@ -30,7 +30,7 @@
     "home_pc": "https://www.google.com/"
   },
   {
-    "name": "必应",
+    "name": "Bing",
     "color": "#409eff",
     "pc": "https://www.bing.com/search?q=#{keyword}&mkt=zh-CN",
     "mobile": "",
@@ -45,7 +45,7 @@
     "home_pc": "https://www.bing.com/"
   },
   {
-    "name": "百度",
+    "name": "Baidu",
     "color": "#3388FF",
     "pc": "https://www.baidu.com/s?wd=#{keyword}",
     "mobile": "https://m.baidu.com/s?word=#{keyword}",
@@ -60,7 +60,7 @@
     "home_pc": "https://www.baidu.com/"
   },
   {
-    "name": "淘宝",
+    "name": "Taobao",
     "color": "#F40",
     "pc": "s.taobao.com/search?q=#{keyword}",
     "mobile": "s.m.taobao.com/h5?q=#{keyword}",
@@ -75,7 +75,7 @@
     "home_pc": "https://s.taobao.com/"
   },
   {
-    "name": "微信",
+    "name": "WeChat",
     "color": "#00BC0C",
     "pc": "https://weixin.sogou.com/weixin?type=2&query=#{keyword}",
     "mobile": "https://weixin.sogou.com/weixinwap?type=2&query=#{keyword}",
@@ -90,7 +90,7 @@
     "home_pc": ""
   },
   {
-    "name": "知乎",
+    "name": "Zhihu",
     "color": "#0F88EB",
     "pc": "www.zhihu.com/search?type=content&q=#{keyword}",
     "mobile": "",
@@ -105,7 +105,7 @@
     "home_pc": ""
   },
   {
-    "name": "微博",
+    "name": "Weibo",
     "color": "#E73137",
     "pc": "s.weibo.com/weibo?q=#{keyword}",
     "mobile": "",
@@ -211,7 +211,7 @@
     "home_pc": ""
   },
   {
-    "name": "哔哩哔哩",
+    "name": "Bilibili",
     "color": "#F25D8E",
     "pc": "search.bilibili.com/all?keyword=#{keyword}",
     "mobile": "https://m.bilibili.com/search?keyword=#{keyword}",
@@ -646,7 +646,7 @@
     "home_pc": ""
   },
   {
-    "name": "Google 翻译",
+    "name": "GoogleTranslate",
     "color": "#4683ea",
     "pc": "translate.google.cn/#auto/en/#{keyword}",
     "mobile": "",
@@ -661,7 +661,7 @@
     "home_pc": ""
   },
   {
-    "name": "百度翻译",
+    "name": "BaiduTranslate",
     "color": "#38F",
     "pc": "fanyi.baidu.com/#zh/en/#{keyword}",
     "mobile": "",
@@ -676,7 +676,7 @@
     "home_pc": ""
   },
   {
-    "name": "搜狗翻译",
+    "name": "SogouTranslate",
     "color": "#FD6853",
     "pc": "fanyi.sogou.com/?keyword=#{keyword}",
     "mobile": "",
@@ -691,7 +691,7 @@
     "home_pc": ""
   },
   {
-    "name": "有道词典",
+    "name": "YoudaoDict",
     "color": "#E31333",
     "pc": "www.youdao.com/w/#{keyword}",
     "mobile": "m.youdao.com/dict?q=#{keyword}",
@@ -706,7 +706,7 @@
     "home_pc": ""
   },
   {
-    "name": "必应词典",
+    "name": "BingDict",
     "color": "#409EFF",
     "pc": "cn.bing.com/dict/search?q=#{keyword}",
     "mobile": "",
@@ -782,7 +782,7 @@
     "home_pc": ""
   },
   {
-    "name": "数学计算",
+    "name": "WolframAlpha",
     "color": "#f36f21",
     "pc": "www.wolframalpha.com/input/?i=#{keyword}",
     "mobile": "",
@@ -904,7 +904,7 @@
     "home_pc": ""
   },
   {
-    "name": "豆瓣",
+    "name": "Douban",
     "color": "rgb(88, 203, 106)",
     "pc": "https://www.douban.com/search?q=#{keyword}",
     "mobile": "",
@@ -1404,7 +1404,7 @@
     "home_pc": ""
   },
   {
-    "name": "得到",
+    "name": "Dedao",
     "color": "#ff6b00",
     "pc": "https://www.dedao.cn/?search=recommend&q=#{keyword}",
     "mobile": "",

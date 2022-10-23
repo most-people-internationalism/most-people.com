@@ -1,15 +1,17 @@
 {
   "cSpell.words": [
+    "bilibili",
     "composables",
     "iconpark",
     "noopener",
     "pinia",
     "rushstack",
     "Shiki",
+    "taobao",
     "unplugin",
     "vueuse"
   ],
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },

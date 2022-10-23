@@ -15,7 +15,7 @@
         :class="{ outWall: engine.now.out_wall && !user.out_wall }"
       >
         <mp-icon-app :name="engine.now.icon" />
-        <span>{{ engine.now.name }}</span>
+        <span>{{ $t(engine.now.name) }}</span>
       </div>
       <div
         class="btn right"
@@ -25,14 +25,62 @@
         <mp-icon name="next" />
       </div>
     </div>
+
+    <el-input
+      class="search"
+      v-model="search.keyword"
+      placeholder="风雨多经人不老 关山初度路犹长"
+      size="large"
+    >
+      <template #suffix>
+        <el-icon>
+          <Search />
+        </el-icon>
+      </template>
+    </el-input>
+
+    <!-- <input
+        ref="search"
+        type="text"
+        v-model="keyword"
+        @keydown="bindKeyDown"
+        @keyup="bindKeyUp"
+        @input="bindInput"
+        @focus="bindFocus"
+        @blur="bindBlur"
+        :class="{ active: inputFocus && sugArr.length }"
+        :placeholder="engineNow.placeholder || ''"
+        autofocus
+      />
+      <div class="clear" v-show="keyword || showSug" @mousedown.prevent="bindClear">
+        <icon name="close" />
+      </div>
+      <div class="btn" @click="bindSearch(null)">
+        <icon name="search" />
+      </div> -->
+    <!-- <div class="sug" v-show="showSug" @mouseout="sugNow = null">
+      <div
+        @mouseover="sugNow = i"
+        class="one"
+        :class="{ active: sugNow === i }"
+        v-for="(e, i) in sugArr"
+        @mousedown.prevent="bindSearch(e)"
+        :key="i"
+      >
+        {{ e }}
+      </div>
+    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
+import { Search } from '@element-plus/icons-vue'
 useHead({ title: computed(() => $t('MostPeople')) })
 const user = useUserStore()
 const engine = useEngineStore()
-
+const search = reactive({
+  keyword: '',
+})
 const logo = {
   prev() {
     if (engine.index > 0) engine.index -= 1
@@ -70,7 +118,6 @@ const logo = {
       align-items: center;
       width: 211px;
       border-radius: 2px;
-      overflow: hidden;
       font-weight: lighter;
 
       .mp-icon-app {
@@ -78,11 +125,11 @@ const logo = {
       }
 
       span {
+        text-align: center;
         user-select: none;
         margin-top: 6px;
         line-height: 22px;
         white-space: nowrap;
-        overflow: hidden;
         text-overflow: ellipsis;
         color: #666;
       }
@@ -102,6 +149,19 @@ const logo = {
           color: #333;
         }
       }
+    }
+  }
+  .el-input.search {
+    margin-top: 30px;
+    width: 100%;
+  }
+}
+
+// pc
+@media screen and (min-width: 800px) {
+  #page-index {
+    .el-input.search {
+      width: 61.8%;
     }
   }
 }

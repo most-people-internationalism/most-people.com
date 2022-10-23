@@ -10,7 +10,7 @@
     </div>
 
     <div class="right">
-      <router-link to="/people">
+      <router-link to="/people" :style="{ maxWidth: '118px' }">
         <span>{{ $t('ServePeople') }}</span>
       </router-link>
       <div class="avatar" @click="toggleLocales">
@@ -18,15 +18,13 @@
       </div>
     </div>
   </div>
-  <router-view class="page" />
+  <router-view class="mp-page" />
 </template>
 
 <script setup lang="ts">
-const { availableLocales, locale } = useI18n()
+const { availableLocales: locales, locale } = useI18n()
 
 const toggleLocales = () => {
-  // change to some real logic
-  const locales = availableLocales
   locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
 }
 </script>
@@ -83,6 +81,13 @@ const toggleLocales = () => {
         }
       }
     }
+  }
+
+  > .mp-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>

@@ -18,10 +18,20 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // 解决 vue-i18n 在开发环境下的警告
+      'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
     },
   },
   plugins: [
-    Vue({ include: [/\.vue$/, /\.md$/] }),
+    Vue({
+      include: [/\.vue$/, /\.md$/],
+      template: {
+        compilerOptions: {
+          // treat all tags with a dash as custom elements
+          isCustomElement: (tag) => tag === 'iconpark-icon',
+        },
+      },
+    }),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
     Pages({

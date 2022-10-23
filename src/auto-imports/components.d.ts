@@ -7,8 +7,10 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Icon: typeof import('./../components/icon.vue')['default']
     IconApp: typeof import('./../components/icon-app.vue')['default']
-    MpApp: typeof import('./../components/mp-app.vue')['default']
+    MpIcon: typeof import('./../components/mp-icon.vue')['default']
+    MpIconApp: typeof import('./../components/mp-icon-app.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

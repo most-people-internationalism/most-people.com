@@ -1,7 +1,7 @@
 [
   {
     "name": "动员群众，解决难题",
-    "color": "#0F60AB",
+    "color": "#e30002",
     "pc": "https://www.sogou.com/web?query=#{keyword}",
     "mobile": "https://m.sogou.com/web/searchList.jsp?keyword=#{keyword}",
     "id": 5,

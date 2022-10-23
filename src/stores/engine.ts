@@ -18,12 +18,13 @@ export const useEngineStore = defineStore({
   id: 'engineStore',
   state: () => {
     return {
-      id: 0,
+      index: 0,
+      ids: [5, 1, 14, 52, 93, 6, 37, 44, 4, 16, 60, 2, 31, 3],
     }
   },
   getters: {
-    engine(): Engine {
-      const engine = engines.find((e) => e.id === this.id)
+    now(): Engine {
+      const engine = engines.find((e) => e.id === this.ids[this.index])
       return engine || engines[0]
     },
   },

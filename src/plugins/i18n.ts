@@ -15,8 +15,8 @@ for (const key in langs) {
 const i18n = createI18n({
   globalInjection: true,
   legacy: false,
-  locale: 'zh-CN',
-  fallbackLocale: 'en',
+  locale: 'zh',
+  fallbackLocale: 'zh',
   messages,
 })
 export default i18n

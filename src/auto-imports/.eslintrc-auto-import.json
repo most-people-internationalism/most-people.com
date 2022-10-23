@@ -1,5 +1,6 @@
 {
   "globals": {
+    "$t": true,
     "EffectScope": true,
     "acceptHMRUpdate": true,
     "computed": true,
@@ -28,7 +29,6 @@
     "mapStores": true,
     "mapWritableState": true,
     "markRaw": true,
-    "mostPeople": true,
     "nextTick": true,
     "onActivated": true,
     "onBeforeMount": true,

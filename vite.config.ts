@@ -46,7 +46,7 @@ export default defineConfig({
       ],
       resolvers: [ElementPlusResolver()],
       dts: './src/auto-imports/auto-imports.d.ts',
-      dirs: ['src/composables', 'src/stores'],
+      dirs: ['./src/composables', './src/stores'],
       eslintrc: {
         enabled: true,
         filepath: './src/auto-imports/.eslintrc-auto-import.json',

@@ -10,7 +10,8 @@
       </div> -->
       <div @click="bindLogo" class="center" :class="{ outWall: engine.out_wall && !user.out_wall }">
         <icon-app :name="engine.icon" />
-        <span>{{ engine.name }}</span>
+        <br />
+        <span>{{ $t('MostPeople') }}</span>
       </div>
       <!-- <div
         class="btn right"
@@ -26,12 +27,11 @@
 <script setup lang="ts">
 const user = useUserStore()
 const { engine } = useEngineStore()
-
 const bindPrev = () => {}
 const bindNext = () => {}
 const bindLogo = () => {}
 
 useHead({
-  title: '动员群众，解决难题',
+  title: computed(() => $t('MostPeople')),
 })
 </script>

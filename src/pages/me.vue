@@ -1,6 +1,6 @@
 <template>
   <div id="page-me">
-    <div>当前： {{ form.count }}</div>
+    <div>当前123： {{ form.count }}</div>
     <el-button @click="add">Add</el-button>
     <el-button type="info">Info</el-button>
 

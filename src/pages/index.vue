@@ -28,9 +28,10 @@
 
     <el-input
       class="search"
-      v-model="search.keyword"
+      v-model="form.keyword"
       placeholder="风雨多经人不老 关山初度路犹长"
       size="large"
+      @input="search.input"
     >
       <template #suffix>
         <el-icon>
@@ -38,6 +39,7 @@
         </el-icon>
       </template>
     </el-input>
+    <div ref="sugElement"></div>
 
     <!-- <input
         ref="search"
@@ -75,12 +77,42 @@
 
 <script setup lang="ts">
 import { Search } from '@element-plus/icons-vue'
+
 useHead({ title: computed(() => $t('MostPeople')) })
+
+// data
 const user = useUserStore()
 const engine = useEngineStore()
-const search = reactive({
+const form = reactive({
   keyword: '',
+  sug: [] as string[],
+  sugIndex: -1,
 })
+
+// element
+const sugElement = ref<HTMLDivElement>()
+
+// event
+const search = {
+  input() {
+    const keyword = form.keyword
+    if (!keyword) {
+      form.sug = []
+      form.sugIndex = -1
+      return
+    }
+    // 缓存关键字
+    user.keyword = keyword
+    const url = 'https://sor.html5.qq.com/api/getsug?key=' + encodeURI(keyword)
+    const script = document.createElement('script')
+    script.src = url
+    if (!sugElement.value) return
+    for (const e of sugElement.value.childNodes) {
+      e.remove()
+    }
+    sugElement.value.appendChild(script)
+  },
+}
 const logo = {
   prev() {
     if (engine.index > 0) engine.index -= 1
@@ -90,6 +122,18 @@ const logo = {
     if (engine.index < engine.ids.length - 1) engine.index += 1
   },
 }
+
+// jsonp
+onBeforeMount(() => {
+  window.sogou = {
+    sug: (data) => {
+      const arr = data[1]
+      console.log('🌊', arr)
+      form.sug = arr
+      form.sugIndex = -1
+    },
+  }
+})
 </script>
 
 <style lang="scss">

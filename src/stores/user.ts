@@ -3,6 +3,7 @@ export const useUserStore = defineStore({
   state: () => {
     return {
       out_wall: false,
+      keyword: '',
     }
   },
   actions: {},

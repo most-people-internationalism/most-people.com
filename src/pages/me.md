@@ -1,5 +1,0 @@
----
-title: Mine
----
-
-Mine

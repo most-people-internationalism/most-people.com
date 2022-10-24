@@ -13,9 +13,9 @@
       <router-link to="/people" :style="{ maxWidth: '118px' }">
         <span>{{ $t('ServePeople') }}</span>
       </router-link>
-      <div class="avatar" @click="toggleLocales">
+      <router-link to="/me" class="avatar">
         <img src="/avatar.jpeg" alt="avatar" />
-      </div>
+      </router-link>
     </div>
   </div>
   <router-view class="mp-page" />

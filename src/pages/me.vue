@@ -20,11 +20,7 @@
   </div>
 </template>
 
-<script>
-export default {
-    
-}
-</script>
+<script setup lang="=ts"></script>
 
 <style lang="scss">
 #Main-QRcode {

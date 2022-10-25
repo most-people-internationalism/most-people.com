@@ -4,7 +4,7 @@
       <div class="avatar">
         <img src="/avatar.jpeg" alt="头像" />
       </div>
-      <div class="name">欢迎游客</div>
+      <div class="name">欢迎游客123</div>
       <!-- <input class="motto" v-model="motto" @blur="bindMottoBlur" placeholder="座右铭" /> -->
     </header>
     <main>

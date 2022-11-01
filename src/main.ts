@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createHead } from '@vueuse/head'
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  // createWebHistory
+} from 'vue-router'
 import generatedRoutes from 'virtual:generated-pages'
 
 import i18n from './plugins/i18n'
@@ -12,13 +15,13 @@ import App from './app.vue'
 const routes = generatedRoutes
 
 const app = createApp(App)
-const env = import.meta.env
+// const env = import.meta.env
 
 app
   .use(i18n)
   .use(
     createRouter({
-      history: createWebHistory(env.BASE_URL),
+      // history: createWebHistory(env.BASE_URL),
       routes,
     }),
   )

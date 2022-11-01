@@ -3,7 +3,8 @@ import { createPinia } from 'pinia'
 import { createHead } from '@vueuse/head'
 import {
   createRouter,
-  // createWebHistory
+  // createWebHistory,
+  createWebHashHistory,
 } from 'vue-router'
 import generatedRoutes from 'virtual:generated-pages'
 
@@ -15,13 +16,13 @@ import App from './app.vue'
 const routes = generatedRoutes
 
 const app = createApp(App)
-// const env = import.meta.env
+const env = import.meta.env
 
 app
   .use(i18n)
   .use(
     createRouter({
-      // history: createWebHistory(env.BASE_URL),
+      history: createWebHashHistory(env.BASE_URL),
       routes,
     }),
   )

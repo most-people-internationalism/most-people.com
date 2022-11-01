@@ -31,9 +31,25 @@
         v-model="form.keyword"
         placeholder="风雨多经人不老 关山初度路犹长"
         @input="search.input"
+        @focus="search.focus"
+        @blur="search.blur"
+        @keydown="search.keydown"
+        @keyup="search.keyup"
+        autofocus
       />
-      <div class="suffix">
+      <div class="suffix" @click="search.survey">
         <mp-icon name="search" />
+      </div>
+      <div class="sug" v-show="form.sug.length > 0 && form.sugShow">
+        <div
+          class="one"
+          :class="{ active: form.sugIndex === i }"
+          v-for="(e, i) in form.sug"
+          :key="e"
+          @mousedown.prevent="search.one(e, i)"
+        >
+          {{ e }}
+        </div>
       </div>
     </div>
 
@@ -42,6 +58,8 @@
 </template>
 
 <script setup lang="ts">
+import { ElMessageBox } from 'element-plus'
+
 useHead({ title: computed(() => $t('MostPeople')) })
 
 // data
@@ -51,6 +69,7 @@ const form = reactive({
   keyword: '',
   sug: [] as string[],
   sugIndex: -1,
+  sugShow: false,
 })
 
 // element
@@ -62,7 +81,6 @@ const search = {
     const keyword = form.keyword
     if (!keyword) {
       form.sug = []
-      form.sugIndex = -1
       return
     }
     // 缓存关键字
@@ -75,6 +93,63 @@ const search = {
       e.remove()
     }
     sugElement.value.appendChild(script)
+  },
+  focus() {
+    form.sugShow = true
+  },
+  blur() {
+    form.sugShow = false
+  },
+  survey() {
+    const keyword = encodeURIComponent(form.keyword)
+    let url = ''
+    const isPC = true
+    if (isPC) {
+      url = engine.now.pc
+      // 有关键字
+      if (keyword) {
+        url = url.replace(mp.re('#{keyword}'), keyword)
+      } else {
+        url = engine.now.home_pc || mp.url(url).origin
+      }
+    } else {
+      url = engine.now.mobile || engine.now.pc
+      // 有关键字
+      if (keyword) {
+        url = url.replace(mp.re('#{keyword}'), keyword)
+      } else {
+        url = engine.now.home_mobile || mp.url(url).origin
+      }
+    }
+    if (!engine.now.pc && engine.now.app) {
+      ElMessageBox.alert('该引擎只有APP端可用', '提示', {
+        confirmButtonText: '确定',
+      })
+      return
+    }
+    mp.open(url)
+  },
+  keydown(event: KeyboardEvent) {
+    if (event.code === 'ArrowUp') {
+      event.preventDefault()
+    }
+  },
+  keyup(event: KeyboardEvent) {
+    let now = form.sugIndex
+    let len = form.sug.length
+    if (event.code === 'ArrowUp') {
+      form.sugIndex = (now + len - 1) % len
+    } else if (event.code === 'ArrowDown') {
+      form.sugIndex = (now + len + 1) % len
+      form.keyword = form.sug[form.sugIndex]
+    } else if (event.code === 'Enter') {
+      search.survey()
+    }
+  },
+  one(e: string, i: number) {
+    form.sugIndex = i
+    form.keyword = e
+    this.survey()
   },
 }
 const logo = {
@@ -92,9 +167,7 @@ onBeforeMount(() => {
   window.sogou = {
     sug: (data) => {
       const arr = data[1]
-      console.log('🌊', arr)
       form.sug = arr
-      form.sugIndex = -1
     },
   }
 })
@@ -154,7 +227,7 @@ onBeforeMount(() => {
       &:hover {
         opacity: 1;
         span {
-          color: #333;
+          color: var(--red);
         }
       }
     }
@@ -170,16 +243,19 @@ onBeforeMount(() => {
       padding-right: 60px;
       width: 100%;
       height: 100%;
-      transition: border 0.3s;
-      border: 1px solid #eee;
+
+      box-shadow: 0 0 0 1px #eee;
       outline: 0;
+      border: 0;
       border-radius: 6px;
 
       &:hover {
-        border-color: rgba(0, 0, 0, 0.24);
+        transition: box-shadow 0.3s;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.24);
       }
       &:focus {
-        border-color: rgba(0, 0, 0, 0.44);
+        box-shadow: 0 0 0 1px #666;
+        border-radius: 6px 6px 0 0;
       }
     }
     .suffix {
@@ -204,13 +280,35 @@ onBeforeMount(() => {
         }
       }
     }
+    .sug {
+      padding-bottom: 5px;
+      min-height: 100px;
+      box-shadow: 0 0 0 1px #666;
+      border-radius: 0 0 6px 6px;
+      .one {
+        color: #666;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+      }
+
+      .one:hover {
+        background: rgba(0, 0, 0, 0.02);
+        color: var(--text);
+      }
+      .one.active {
+        background: #666;
+        color: #fff;
+      }
+    }
   }
 }
 
 // pc
 @media screen and (min-width: 800px) {
   #page-index {
-    .el-input.search {
+    .search {
       width: 61.8%;
     }
   }

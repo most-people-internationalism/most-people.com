@@ -30,6 +30,7 @@ optgroup,
 select,
 textarea {
   font-family: PingFang SC, Source Sans, Microsoft Yahei, sans-serif;
+  font-size: 100%;
 }
 
 a {
@@ -37,6 +38,7 @@ a {
   text-decoration: none;
   color: var(--text);
 }
+
 a:hover {
   color: var(--red);
 }

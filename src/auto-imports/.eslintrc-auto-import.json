@@ -29,6 +29,7 @@
     "mapStores": true,
     "mapWritableState": true,
     "markRaw": true,
+    "mp": true,
     "nextTick": true,
     "onActivated": true,
     "onBeforeMount": true,

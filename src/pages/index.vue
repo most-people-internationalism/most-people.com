@@ -26,58 +26,22 @@
       </div>
     </div>
 
-    <el-input
-      class="search"
-      v-model="form.keyword"
-      placeholder="风雨多经人不老 关山初度路犹长"
-      size="large"
-      @input="search.input"
-    >
-      <template #suffix>
-        <el-icon>
-          <Search />
-        </el-icon>
-      </template>
-    </el-input>
-    <div ref="sugElement"></div>
-
-    <!-- <input
-        ref="search"
-        type="text"
-        v-model="keyword"
-        @keydown="bindKeyDown"
-        @keyup="bindKeyUp"
-        @input="bindInput"
-        @focus="bindFocus"
-        @blur="bindBlur"
-        :class="{ active: inputFocus && sugArr.length }"
-        :placeholder="engineNow.placeholder || ''"
-        autofocus
+    <div class="search">
+      <input
+        v-model="form.keyword"
+        placeholder="风雨多经人不老 关山初度路犹长"
+        @input="search.input"
       />
-      <div class="clear" v-show="keyword || showSug" @mousedown.prevent="bindClear">
-        <icon name="close" />
+      <div class="suffix">
+        <mp-icon name="search" />
       </div>
-      <div class="btn" @click="bindSearch(null)">
-        <icon name="search" />
-      </div> -->
-    <!-- <div class="sug" v-show="showSug" @mouseout="sugNow = null">
-      <div
-        @mouseover="sugNow = i"
-        class="one"
-        :class="{ active: sugNow === i }"
-        v-for="(e, i) in sugArr"
-        @mousedown.prevent="bindSearch(e)"
-        :key="i"
-      >
-        {{ e }}
-      </div>
-    </div> -->
+    </div>
+
+    <div ref="sugElement"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Search } from '@element-plus/icons-vue'
-
 useHead({ title: computed(() => $t('MostPeople')) })
 
 // data
@@ -195,9 +159,51 @@ onBeforeMount(() => {
       }
     }
   }
-  .el-input.search {
+  .search {
+    position: relative;
     margin-top: 30px;
     width: 100%;
+    height: 44px;
+
+    input {
+      padding: 10px;
+      padding-right: 60px;
+      width: 100%;
+      height: 100%;
+      transition: border 0.3s;
+      border: 1px solid #eee;
+      outline: 0;
+      border-radius: 6px;
+
+      &:hover {
+        border-color: rgba(0, 0, 0, 0.24);
+      }
+      &:focus {
+        border-color: rgba(0, 0, 0, 0.44);
+      }
+    }
+    .suffix {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      .icon-search {
+        font-size: 18px;
+        color: #666;
+      }
+      &:hover {
+        .icon-search {
+          color: var(--red);
+        }
+      }
+    }
   }
 }
 

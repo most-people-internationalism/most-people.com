@@ -1,6 +1,6 @@
-import Bowser from 'bowser'
+// import Bowser from 'bowser'
 
-const browser = Bowser.getParser(window.navigator.userAgent)
+// const browser = Bowser.getParser(window.navigator.userAgent)
 
 export const useUserStore = defineStore({
   id: 'userStore',
@@ -8,7 +8,7 @@ export const useUserStore = defineStore({
     return {
       out_wall: false,
       keyword: '',
-      isPC: browser.getPlatformType(true) !== 'mobile',
+      isPC: true,
     }
   },
   actions: {},

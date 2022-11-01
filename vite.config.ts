@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
+import viteSSR from 'vite-ssr/plugin'
 
 import Pages from 'vite-plugin-pages'
 import Components from 'unplugin-vue-components/vite'
@@ -23,6 +24,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    viteSSR(),
     Vue({
       include: [/\.vue$/, /\.md$/],
       template: {

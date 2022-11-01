@@ -2,9 +2,8 @@
   "name": "most-people",
   "version": "0.0.1",
   "scripts": {
-    "start": "vite --host 0.0.0.0 --port 2009 --open",
-    "build": "run-p type-check build-only",
-    "build-only": "vite build",
+    "start": "vite-ssr --host 0.0.0.0 --port 2009 --open",
+    "build": "vite-ssr build",
     "preview": "vite preview --host 0.0.0.0 --port 2010",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
@@ -12,7 +11,8 @@
   },
   "dependencies": {
     "bowser": "^2.11.0",
-    "dayjs": "^1.11.6"
+    "dayjs": "^1.11.6",
+    "vite-ssr": "^0.16.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",

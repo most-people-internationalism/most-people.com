@@ -11,6 +11,7 @@
     "yarn": "yarn"
   },
   "dependencies": {
+    "bowser": "^2.11.0",
     "dayjs": "^1.11.6"
   },
   "devDependencies": {

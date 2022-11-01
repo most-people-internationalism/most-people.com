@@ -28,6 +28,7 @@
 
     <div class="search">
       <input
+        :class="{ showSug: form.focus && form.sug.length > 0 }"
         v-model="form.keyword"
         placeholder="风雨多经人不老 关山初度路犹长"
         @input="search.input"
@@ -40,7 +41,7 @@
       <div class="suffix" @click="search.survey">
         <mp-icon name="search" />
       </div>
-      <div class="sug" v-show="form.sug.length > 0 && form.sugShow">
+      <div class="sug" v-show="form.focus && form.sug.length > 0">
         <div
           class="one"
           :class="{ active: form.sugIndex === i }"
@@ -69,7 +70,7 @@ const form = reactive({
   keyword: '',
   sug: [] as string[],
   sugIndex: -1,
-  sugShow: false,
+  focus: false,
 })
 
 // element
@@ -81,6 +82,7 @@ const search = {
     const keyword = form.keyword
     if (!keyword) {
       form.sug = []
+      form.sugIndex = -1
       return
     }
     // 缓存关键字
@@ -95,16 +97,15 @@ const search = {
     sugElement.value.appendChild(script)
   },
   focus() {
-    form.sugShow = true
+    form.focus = true
   },
   blur() {
-    form.sugShow = false
+    form.focus = false
   },
   survey() {
     const keyword = encodeURIComponent(form.keyword)
     let url = ''
-    const isPC = true
-    if (isPC) {
+    if (user.isPC) {
       url = engine.now.pc
       // 有关键字
       if (keyword) {
@@ -166,8 +167,12 @@ const logo = {
 onBeforeMount(() => {
   window.sogou = {
     sug: (data) => {
-      const arr = data[1]
-      form.sug = arr
+      const keyword = data[0]
+      if (keyword === form.keyword) {
+        const arr = data[1]
+        form.sugIndex = -1
+        form.sug = arr
+      }
     },
   }
 })
@@ -221,7 +226,7 @@ onBeforeMount(() => {
         max-height: 100%;
       }
 
-      &.out-wall {
+      &.outWall {
         opacity: 0.6;
       }
       &:hover {
@@ -255,6 +260,8 @@ onBeforeMount(() => {
       }
       &:focus {
         box-shadow: 0 0 0 1px #666;
+      }
+      &.showSug {
         border-radius: 6px 6px 0 0;
       }
     }
@@ -280,6 +287,7 @@ onBeforeMount(() => {
         }
       }
     }
+
     .sug {
       padding-bottom: 5px;
       min-height: 100px;

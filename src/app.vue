@@ -14,7 +14,7 @@
         <span>{{ $t('ServePeople') }}</span>
       </router-link>
       <router-link to="/me" class="avatar">
-        <img src="@/assets/imgs/avatar.jpeg" alt="avatar" />
+        <img src="/avatar.jpeg" alt="avatar" />
       </router-link>
     </div>
   </div>

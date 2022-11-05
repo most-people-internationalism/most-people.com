@@ -71,6 +71,7 @@
         <mp-icon-app :name="e.icon" />
         <span>{{ $t(e.name) }}</span>
       </div>
+      <div class="engine add" @click="engine.add">+</div>
     </div>
   </div>
 </template>
@@ -329,7 +330,6 @@ onBeforeMount(() => {
 
     .sug {
       padding-bottom: 5px;
-      min-height: 100px;
       box-shadow: 0 0 0 1px #666;
       border-radius: 0 0 6px 6px;
       background: #fff;

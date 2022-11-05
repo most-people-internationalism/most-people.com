@@ -1,4 +1,5 @@
 import engines from '@/assets/engines.json'
+import router from '@/plugins/router'
 
 export interface Engine {
   name: string
@@ -42,6 +43,9 @@ export const useEngineStore = defineStore({
   actions: {
     click(i: number) {
       this.index = i
+    },
+    add() {
+      router.push('/engines')
     },
   },
 })

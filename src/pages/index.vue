@@ -36,7 +36,9 @@
         @blur="search.blur"
         @keydown="search.keydown"
         @keyup="search.keyup"
+        type="search"
         autofocus
+        autocomplete="off"
       />
       <div class="suffix">
         <mp-icon
@@ -157,19 +159,19 @@ const search = {
     form.sugIndex = -1
   },
   keydown(event: KeyboardEvent) {
-    if (event.code === 'ArrowUp') {
+    if (event.code === 'ArrowUp' || event.keyCode === 38) {
       event.preventDefault()
     }
   },
   keyup(event: KeyboardEvent) {
     let now = form.sugIndex
     let len = form.sug.length
-    if (event.code === 'ArrowUp') {
+    if (event.code === 'ArrowUp' || event.keyCode === 38) {
       form.sugIndex = (now + len - 1) % len
-    } else if (event.code === 'ArrowDown') {
+    } else if (event.code === 'ArrowDown' || event.keyCode === 40) {
       form.sugIndex = (now + len + 1) % len
       form.keyword = form.sug[form.sugIndex]
-    } else if (event.code === 'Enter') {
+    } else if (event.code === 'Enter' || event.keyCode === 13) {
       search.survey()
     }
   },
@@ -304,9 +306,10 @@ onBeforeMount(() => {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      cursor: pointer;
 
-      .iconpark {
+      .mp-icon {
+        cursor: pointer;
+
         padding: 5px;
       }
 
@@ -363,7 +366,8 @@ onBeforeMount(() => {
     .engine {
       cursor: pointer;
       width: 85px;
-      padding: 8px 0;
+      padding: 4px 0;
+      margin: 3px 0;
       text-align: center;
       background: rgba(0, 0, 0, 0.01);
       border-radius: 12px;

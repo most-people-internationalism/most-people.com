@@ -48,3 +48,7 @@ img {
   height: 100%;
   object-fit: cover;
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+  appearance: none;
+}

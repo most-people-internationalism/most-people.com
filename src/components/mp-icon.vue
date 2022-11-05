@@ -1,6 +1,6 @@
 <!-- https://bytedance.feishu.cn/wiki/wikcnJZV45hM71QgI60iwkzvXob#bIprMt -->
 <template>
-  <iconpark-icon :icon-id="props.name" class="iconpark" :class="`icon-${props.name}`">
+  <iconpark-icon :icon-id="props.name" class="mp-icon" :class="`icon-${props.name}`">
   </iconpark-icon>
 </template>
 

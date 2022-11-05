@@ -80,7 +80,9 @@ import { ElMessageBox } from 'element-plus'
 
 useHead({ title: computed(() => $t('MostPeople')) })
 
+const router = useRouter()
 // data
+
 const user = useUserStore()
 const engine = useEngineStore()
 
@@ -180,7 +182,9 @@ const logo = {
   prev() {
     if (engine.index > 0) engine.index -= 1
   },
-  click() {},
+  click() {
+    router.push('/engines')
+  },
   next() {
     if (engine.index < engine.ids.length - 1) engine.index += 1
   },
@@ -349,17 +353,21 @@ onBeforeMount(() => {
   }
 
   .engines {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 7px 0;
+    width: 100%;
+    // http://ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 85px);
+    justify-content: space-between;
+    padding: 8px 0;
 
     .engine {
       cursor: pointer;
       width: 85px;
-      padding: 7px 0;
+      padding: 8px 0;
       text-align: center;
-      color: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.01);
+      border-radius: 12px;
+      color: #333;
 
       .mp-icon-app {
         font-size: 24px;
@@ -375,11 +383,11 @@ onBeforeMount(() => {
       }
 
       &:hover {
-        background: rgba(0, 0, 0, 0.02);
+        background: rgba(234, 234, 234, 0.5);
       }
 
       &.active {
-        color: #0f60ab;
+        color: #000;
       }
 
       &.empty {

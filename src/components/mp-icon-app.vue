@@ -1,6 +1,6 @@
 <!-- https://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=2137730 -->
 <template>
-  <svg class="mp-icon-app" :class="props.name" aria-hidden="true">
+  <svg class="mp-icon-app" :class="`icon-app-${props.name}`" aria-hidden="true">
     <use :xlink:href="`#app-${props.name}`"></use>
   </svg>
 </template>

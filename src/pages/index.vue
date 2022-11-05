@@ -27,10 +27,10 @@
     </div>
 
     <div class="search">
+      <div ref="sugElement"></div>
       <input
         :class="{ showSug: form.focus && form.sug.length > 0 }"
         v-model="form.keyword"
-        placeholder="风雨多经人不老 关山初度路犹长"
         @input="search.input"
         @focus="search.focus"
         @blur="search.blur"
@@ -38,8 +38,13 @@
         @keyup="search.keyup"
         autofocus
       />
-      <div class="suffix" @click="search.survey">
-        <mp-icon name="search" />
+      <div class="suffix">
+        <mp-icon
+          :style="{ visibility: form.keyword ? '' : 'hidden' }"
+          name="close"
+          @click="search.clear"
+        />
+        <mp-icon name="search" @click="search.survey" />
       </div>
       <div class="sug" v-show="form.focus && form.sug.length > 0">
         <div
@@ -54,7 +59,19 @@
       </div>
     </div>
 
-    <div ref="sugElement"></div>
+    <div class="engines">
+      <div
+        class="engine"
+        :class="{ active: engine.now.id === e.id }"
+        :style="{ color: engine.now.id === e.id ? e.color : '' }"
+        v-for="(e, i) in engine.list"
+        :key="e.id"
+        @click="engine.click(i)"
+      >
+        <mp-icon-app :name="e.icon" />
+        <span>{{ $t(e.name) }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,6 +83,7 @@ useHead({ title: computed(() => $t('MostPeople')) })
 // data
 const user = useUserStore()
 const engine = useEngineStore()
+
 const form = reactive({
   keyword: '',
   sug: [] as string[],
@@ -129,6 +147,11 @@ const search = {
       return
     }
     mp.open(url)
+  },
+  clear() {
+    form.keyword = ''
+    form.sug = []
+    form.sugIndex = -1
   },
   keydown(event: KeyboardEvent) {
     if (event.code === 'ArrowUp') {
@@ -237,6 +260,7 @@ onBeforeMount(() => {
       }
     }
   }
+
   .search {
     position: relative;
     margin-top: 30px;
@@ -274,15 +298,26 @@ onBeforeMount(() => {
       width: 60px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       cursor: pointer;
 
+      .iconpark {
+        padding: 5px;
+      }
+
+      .icon-close {
+        font-size: 12px;
+        color: #666;
+        &:hover {
+          color: #333;
+        }
+      }
+
       .icon-search {
+        padding-right: 10px;
         font-size: 18px;
         color: #666;
-      }
-      &:hover {
-        .icon-search {
+        &:hover {
           color: var(--red);
         }
       }
@@ -293,6 +328,7 @@ onBeforeMount(() => {
       min-height: 100px;
       box-shadow: 0 0 0 1px #666;
       border-radius: 0 0 6px 6px;
+      background: #fff;
       .one {
         color: #666;
         cursor: pointer;
@@ -308,6 +344,60 @@ onBeforeMount(() => {
       .one.active {
         background: #666;
         color: #fff;
+      }
+    }
+  }
+
+  .engines {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 7px 0;
+
+    .engine {
+      cursor: pointer;
+      width: 85px;
+      padding: 7px 0;
+      text-align: center;
+      color: rgba(0, 0, 0, 0.6);
+
+      .mp-icon-app {
+        font-size: 24px;
+      }
+
+      span {
+        font-size: 14px;
+        margin-top: 8px;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.02);
+      }
+
+      &.active {
+        color: #0f60ab;
+      }
+
+      &.empty {
+        visibility: hidden;
+        margin: 0;
+        padding: 0;
+      }
+
+      &.add {
+        color: rgba(0, 0, 0, 0.3);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &.add:hover {
+        color: #0f60ab;
       }
     }
   }

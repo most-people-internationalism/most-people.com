@@ -332,19 +332,6 @@
     "home_pc": ""
   },
   {
-    "name": "未命名",
-    "color": "",
-    "pc": "",
-    "mobile": "",
-    "id": 22,
-    "out_wall": false,
-    "tags": [],
-    "icon": "",
-    "app": "",
-    "home_mobile": "",
-    "home_pc": ""
-  },
-  {
     "name": "求是杂志社",
     "color": "#d64339",
     "pc": "http://search.qstheory.cn/qiushi/?keyword=#{keyword}",
@@ -492,8 +479,8 @@
     ],
     "icon": "v2ex",
     "app": "",
-    "home_mobile": "",
-    "home_pc": ""
+    "home_mobile": "www.v2ex.com",
+    "home_pc": "www.v2ex.com"
   },
   {
     "name": "StackOverflow",

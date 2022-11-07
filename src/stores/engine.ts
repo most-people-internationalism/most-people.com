@@ -20,8 +20,7 @@ export const useEngineStore = defineStore({
   state: () => {
     return {
       index: 0,
-      // ids: [5, 1, 14, 52, 93, 6, 37, 44, 4, 16, 60, 2, 31, 3],
-      ids: engines.map((e) => e.id),
+      ids: [5, 1, 14, 52, 93, 6, 37, 44, 4, 16, 60, 2, 31, 3],
     }
   },
   getters: {

@@ -80,8 +80,9 @@
 
 <script setup lang="ts">
 import { useIndex } from '@/composables/useIndex'
-
 const { sugElement, search, logo, form, engine, user } = useIndex()
+
+useHead({ title: computed(() => $t('MostPeople')) })
 </script>
 
 <style lang="scss">
@@ -288,16 +289,6 @@ const { sugElement, search, logo, form, engine, user } = useIndex()
       &.add:hover {
         color: #0f60ab;
       }
-    }
-  }
-}
-
-// pc
-@media screen and (min-width: 800px) {
-  #page-index {
-    .search,
-    .engines {
-      width: 61.8%;
     }
   }
 }

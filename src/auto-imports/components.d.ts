@@ -7,6 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ElOption: typeof import('element-plus/es')['ElOption']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
     MpIcon: typeof import('./../components/mp-icon.vue')['default']
     MpIconApp: typeof import('./../components/mp-icon-app.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

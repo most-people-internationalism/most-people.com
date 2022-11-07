@@ -18,10 +18,11 @@ for (const key in langs) {
     messages[lang] = value
   }
 }
+
 const i18n = createI18n({
   globalInjection: true,
   legacy: false,
-  locale: 'zh',
+  locale: localStorage.getItem('lang') || 'zh',
   fallbackLocale: 'zh',
   messages,
 })

@@ -21,22 +21,15 @@
   <router-view class="mp-page" />
 </template>
 
-<script setup lang="ts">
-const { availableLocales: locales, locale } = useI18n()
-
-const toggleLocales = () => {
-  locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
-}
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss">
 #app {
-  padding: 0 16px;
-
   > .mp-header {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    padding: 0 16px;
 
     .left,
     .right {
@@ -88,6 +81,16 @@ const toggleLocales = () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+}
+
+// pc
+@media screen and (min-width: 800px) {
+  #app {
+    .mp-page {
+      width: 61.8%;
+      margin: 0 auto;
+    }
   }
 }
 </style>

@@ -1,7 +1,5 @@
 import { ElMessageBox } from 'element-plus'
 
-useHead({ title: computed(() => $t('MostPeople')) })
-
 export const useIndex = () => {
   const router = useRouter()
 

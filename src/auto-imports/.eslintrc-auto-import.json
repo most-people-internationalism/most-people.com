@@ -1,6 +1,5 @@
 {
   "globals": {
-    "$md": true,
     "$t": true,
     "EffectScope": true,
     "acceptHMRUpdate": true,

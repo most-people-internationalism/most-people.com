@@ -8,7 +8,7 @@
         autosize
         resize="none"
         v-model="form.taskList[i]"
-        @keydown="task.keydown($event, i)"
+        @keydown="task.keydown($event as KeyboardEvent, i)"
         @focus="form.focusIndex = i"
         @blur="form.focusIndex = -1"
         v-show="form.focusIndex === i"

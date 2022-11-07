@@ -9,8 +9,11 @@
         resize="none"
         v-model="form.taskList[i]"
         @keydown="task.keydown($event, i)"
+        @focus="form.focusIndex = i"
+        @blur="form.focusIndex = -1"
+        v-show="form.focusIndex === i"
       />
-      <div class="markdown" v-html="markdown.render(e)"></div>
+      <div class="markdown" v-html="markdown.render(e)" @click="task.focus(i)"></div>
     </div>
   </div>
 </template>
@@ -20,6 +23,7 @@ const elements = ref<HTMLInputElement[]>()
 
 const form = reactive({
   taskList: ['## 为了人类的崇高的理想而战'],
+  focusIndex: -1,
 })
 
 const markdown = mp.markdown
@@ -29,7 +33,10 @@ const task = {
     nextTick(() => {
       if (elements.value) {
         const input = elements.value[index]
-        if (input) input.focus()
+        if (input) {
+          form.focusIndex = index
+          input.focus()
+        }
       }
     })
   },
@@ -78,6 +85,7 @@ const task = {
   .task {
     .el-textarea {
       font-size: 100%;
+      margin-bottom: 10px;
       textarea {
         outline: 0;
         border: 0;

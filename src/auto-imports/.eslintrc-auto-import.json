@@ -1,5 +1,6 @@
 {
   "globals": {
+    "$md": true,
     "$t": true,
     "EffectScope": true,
     "acceptHMRUpdate": true,
@@ -66,6 +67,7 @@
     "useEngineStore": true,
     "useHead": true,
     "useI18n": true,
+    "useIndex": true,
     "useRoute": true,
     "useRouter": true,
     "useSlots": true,

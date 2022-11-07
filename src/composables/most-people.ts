@@ -1,8 +1,10 @@
 import { t } from '@/plugins/i18n'
+import MarkdownIt from 'markdown-it'
 
 export const $t = t
 
 export const mp = {
+  markdown: new MarkdownIt('default', { breaks: true, linkify: true }),
   openUrl(url: string) {
     // 默认 https
     if (url.startsWith('http')) {

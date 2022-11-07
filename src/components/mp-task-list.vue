@@ -1,7 +1,16 @@
 <template>
   <div class="mp-task-list">
     <div v-for="(e, i) in form.taskList" :key="i" class="task">
-      <input ref="elements" v-model="form.taskList[i]" @keydown="task.keydown($event, i)" />
+      <el-input
+        ref="elements"
+        autocomplete="off"
+        type="textarea"
+        autosize
+        resize="none"
+        v-model="form.taskList[i]"
+        @keydown="task.keydown($event, i)"
+      />
+      <div class="markdown" v-html="markdown.render(e)"></div>
     </div>
   </div>
 </template>
@@ -10,17 +19,22 @@
 const elements = ref<HTMLInputElement[]>()
 
 const form = reactive({
-  taskList: ['为了人类的崇高的理想而战'],
+  taskList: ['## 为了人类的崇高的理想而战'],
 })
+
+const markdown = mp.markdown
 
 const task = {
   focus(index: number) {
     nextTick(() => {
-      if (elements.value) elements.value[index].focus()
+      if (elements.value) {
+        const input = elements.value[index]
+        if (input) input.focus()
+      }
     })
   },
   keydown(event: KeyboardEvent, i: number) {
-    const { keyCode, code } = event
+    const { keyCode, code, shiftKey } = event
     const ArrowUp = code === 'ArrowUp' || keyCode === 38
     const ArrowDown = code === 'ArrowDown' || keyCode === 40
     const Enter = code === 'Enter' || keyCode === 13
@@ -30,18 +44,24 @@ const task = {
 
     if (Backspace && v === '' && form.taskList.length > 1) {
       event.preventDefault()
+
       form.taskList.splice(i, 1)
+
       this.focus(i > 0 ? i - 1 : i)
-    } else if (Enter) {
+    } else if (Enter && shiftKey) {
       event.preventDefault()
+
       const index = i + 1
       form.taskList.splice(index, 0, '')
+
       this.focus(index)
-    } else if (ArrowUp) {
+    } else if (ArrowUp && shiftKey) {
       event.preventDefault()
+
       this.focus(i - 1)
-    } else if (ArrowDown) {
+    } else if (ArrowDown && shiftKey) {
       event.preventDefault()
+
       this.focus(i + 1)
     }
   },
@@ -56,19 +76,28 @@ const task = {
   padding: 10px 0;
   border-radius: 6px;
   .task {
-    input {
-      outline: 0;
-      border: 0;
-      color: #666;
-      height: 44px;
-      width: 100%;
-      padding: 0 10px;
-      background: transparent;
-      border-radius: 4px;
+    .el-textarea {
+      font-size: 100%;
+      textarea {
+        outline: 0;
+        border: 0;
+        padding: 0 10px;
+        border-radius: 4px;
+        color: #666;
+        box-shadow: none;
+        width: 100%;
+        background: transparent;
+
+        &:focus {
+          color: #444;
+          background: rgba(0, 0, 0, 0.02);
+        }
+      }
     }
-    input:focus {
-      color: #444;
-      background: rgba(0, 0, 0, 0.02);
+
+    .markdown {
+      color: #666;
+      padding: 0 10px;
     }
   }
 }

@@ -9,7 +9,6 @@
         <mp-icon name="back" />
       </div>
       <div
-        @click="logo.click"
         class="center"
         :style="`--color: ${engine.now.color}`"
         :class="{ outWall: engine.now.out_wall && !user.out_wall }"

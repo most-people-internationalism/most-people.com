@@ -1,8 +1,6 @@
 import { ElMessageBox } from 'element-plus'
 
 export const useIndex = () => {
-  const router = useRouter()
-
   const user = useUserStore()
   const engine = useEngineStore()
 
@@ -102,9 +100,6 @@ export const useIndex = () => {
   const logo = {
     prev() {
       if (engine.index > 0) engine.index -= 1
-    },
-    click() {
-      router.push('/engines')
     },
     next() {
       if (engine.index < engine.ids.length - 1) engine.index += 1

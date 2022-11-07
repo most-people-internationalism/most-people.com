@@ -29,7 +29,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 0 16px;
+    min-height: 72px;
 
     .left,
     .right {
@@ -37,7 +37,7 @@
       align-items: center;
       a {
         cursor: pointer;
-        padding: 20px 16px;
+        padding: 0 16px;
         height: 100%;
         display: flex;
         align-items: center;
@@ -59,7 +59,7 @@
       .avatar {
         display: flex;
         align-items: center;
-        padding: 20px 16px;
+        padding: 0 16px;
         cursor: pointer;
         line-height: 32px;
         opacity: 0.9;
@@ -77,6 +77,7 @@
   }
 
   > .mp-page {
+    padding: 0 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,6 +89,7 @@
 @media screen and (min-width: 800px) {
   #app {
     .mp-page {
+      padding: 0;
       width: 61.8%;
       margin: 0 auto;
     }

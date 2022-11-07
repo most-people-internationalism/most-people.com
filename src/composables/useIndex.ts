@@ -75,19 +75,27 @@ export const useIndex = () => {
       form.sugIndex = -1
     },
     keydown(event: KeyboardEvent) {
-      if (event.code === 'ArrowUp' || event.keyCode === 38) {
+      const { keyCode, code } = event
+      const ArrowUp = code === 'ArrowUp' || keyCode === 38
+
+      if (ArrowUp) {
         event.preventDefault()
       }
     },
     keyup(event: KeyboardEvent) {
+      const { keyCode, code } = event
+      const ArrowUp = code === 'ArrowUp' || keyCode === 38
+      const ArrowDown = code === 'ArrowDown' || keyCode === 40
+      const Enter = code === 'Enter' || keyCode === 13
+
       const now = form.sugIndex
       const len = form.sug.length
-      if (event.code === 'ArrowUp' || event.keyCode === 38) {
+      if (ArrowUp) {
         form.sugIndex = (now + len - 1) % len
-      } else if (event.code === 'ArrowDown' || event.keyCode === 40) {
+      } else if (ArrowDown) {
         form.sugIndex = (now + len + 1) % len
         form.keyword = form.sug[form.sugIndex]
-      } else if (event.code === 'Enter' || event.keyCode === 13) {
+      } else if (Enter) {
         search.survey()
       }
     },

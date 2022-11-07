@@ -77,7 +77,7 @@
   }
 
   > .mp-page {
-    padding: 0 16px;
+    padding: 0 16px 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,7 +88,7 @@
 // pc
 @media screen and (min-width: 800px) {
   #app {
-    .mp-page {
+    > .mp-page {
       padding: 0;
       width: 61.8%;
       margin: 0 auto;

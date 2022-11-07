@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     MpIcon: typeof import('./../components/mp-icon.vue')['default']
     MpIconApp: typeof import('./../components/mp-icon-app.vue')['default']
+    MpTaskList: typeof import('./../components/mp-task-list.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

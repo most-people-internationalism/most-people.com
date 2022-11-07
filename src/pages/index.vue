@@ -74,6 +74,8 @@
       </div>
       <div class="engine add" @click="engine.add">+</div>
     </div>
+
+    <mp-task-list />
   </div>
 </template>
 

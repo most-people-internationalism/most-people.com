@@ -8,6 +8,11 @@ import './assets/main.scss'
 
 import App from './app.vue'
 
+import { inject } from '@vercel/analytics'
+if (import.meta.env.PROD) {
+  inject()
+}
+
 const app = createApp(App)
 
 app.use(i18n).use(router).use(createPinia()).use(createHead()).mount('#app')

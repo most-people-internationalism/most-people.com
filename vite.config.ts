@@ -9,7 +9,6 @@ import AutoImport from 'unplugin-auto-import/vite'
 
 import Markdown from 'vite-plugin-vue-markdown'
 import LinkAttributes from 'markdown-it-link-attributes'
-import Shiki from 'markdown-it-shiki'
 
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
@@ -72,9 +71,6 @@ export default defineConfig({
       wrapperClasses: 'page-markdown',
       headEnabled: true,
       markdownItSetup(md) {
-        md.use(Shiki, {
-          theme: 'solarized-light',
-        })
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),
           attrs: {

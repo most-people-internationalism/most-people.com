@@ -11,9 +11,14 @@
         @keydown="task.keydown($event as KeyboardEvent, i)"
         @focus="form.focusIndex = i"
         @blur="form.focusIndex = -1"
-        v-show="form.focusIndex === i"
+        v-show="form.focusIndex > -1"
       />
-      <div class="markdown" v-html="markdown.render(e)" @click="task.focus(i)"></div>
+      <div
+        v-show="form.focusIndex === -1"
+        class="markdown"
+        v-html="markdown.render(e)"
+        @click="task.focus(i)"
+      ></div>
     </div>
   </div>
 </template>
@@ -85,7 +90,6 @@ const task = {
   .task {
     .el-textarea {
       font-size: 100%;
-      margin-bottom: 10px;
       textarea {
         outline: 0;
         border: 0;
@@ -106,6 +110,7 @@ const task = {
     .markdown {
       color: #666;
       padding: 0 10px;
+      min-height: 24px;
     }
   }
 }

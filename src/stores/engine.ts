@@ -1,26 +1,14 @@
-import engines from '@/assets/engines.json'
+import engines from '@/stores/engines'
+import type { Engine } from '@/stores/engines'
 import router from '@/plugins/router'
-
-export interface Engine {
-  name: string
-  color: string
-  pc: string
-  mobile: string
-  id: number
-  out_wall: boolean
-  tags: string[]
-  icon: string
-  app: string
-  home_mobile: string
-  home_pc: string
-}
 
 export const useEngineStore = defineStore({
   id: 'engineStore',
   state: () => {
     return {
       index: 0,
-      ids: [5, 1, 14, 52, 93, 6, 37, 44, 4, 16, 60, 2, 31, 3],
+      // ids: [5, 1, 14, 52, 93, 6, 37, 44, 4, 16, 60, 2, 31, 3],
+      ids: engines.map((e) => e.id),
     }
   },
   getters: {

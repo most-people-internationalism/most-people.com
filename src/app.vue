@@ -91,7 +91,7 @@
     > .mp-page {
       padding: 0;
       width: 61.8%;
-      margin: 0 auto;
+      margin: 0 auto 72px;
     }
   }
 }

@@ -1517,13 +1517,26 @@
     "name": "韩剧TV",
     "color": "#FF443F",
     "pc": "https://www.hanjutv.com/index.php?c=so&keyword=#{keyword}",
-    "mobile": "https://m.hanjutv.com/index.php?c=so&module=video&keyword=",
+    "mobile": "",
     "id": 101,
     "out_wall": false,
     "tags": [
       "看视频"
     ],
     "icon": "hanjutv",
+    "app": "",
+    "home_mobile": "",
+    "home_pc": ""
+  },
+  {
+    "name": "爱发电",
+    "color": "#FF443F",
+    "pc": "afdian.net/search?q=#{keyword}",
+    "mobile": "",
+    "id": 190,
+    "out_wall": false,
+    "tags": [],
+    "icon": "loading",
     "app": "",
     "home_mobile": "",
     "home_pc": ""

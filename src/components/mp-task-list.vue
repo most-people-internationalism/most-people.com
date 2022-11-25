@@ -11,14 +11,9 @@
         @keydown="task.keydown($event as KeyboardEvent, i)"
         @focus="form.focusIndex = i"
         @blur="form.focusIndex = -1"
+        v-show="form.focusIndex > -1"
       />
-      <!-- v-show="form.focusIndex > -1" -->
-      <!-- <div
-        v-show="form.focusIndex === -1"
-        class="markdown"
-        v-html="markdown.render(e)"
-        @click="task.focus(i)"
-      ></div> -->
+      <div class="markdown" v-html="markdown.render(e)" @click="task.focus(i)"></div>
     </div>
   </div>
 </template>

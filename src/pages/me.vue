@@ -12,11 +12,17 @@
 </template>
 
 <script setup lang="ts">
+import axios from 'axios'
+
 const { availableLocales: locales, locale, getLocaleMessage } = useI18n()
 
 const change = () => {
   localStorage.setItem('lang', locale.value)
 }
+
+axios.get('https://43.139.26.30:1976/').then((res) => {
+  console.log('🌊', res)
+})
 </script>
 
 <style lang="scss"></style>

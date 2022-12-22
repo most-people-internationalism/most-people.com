@@ -11,9 +11,7 @@
         @keydown="task.keydown($event as KeyboardEvent, i)"
         @focus="form.focusIndex = i"
         @blur="form.focusIndex = -1"
-        v-show="form.focusIndex > -1"
       />
-      <div class="markdown" v-html="markdown.render(e)" @click="task.focus(i)"></div>
     </div>
   </div>
 </template>
@@ -22,11 +20,9 @@
 const elements = ref<HTMLInputElement[]>()
 
 const form = reactive({
-  taskList: ['## 为了人类的崇高的理想而战'],
+  taskList: ['为了人类的崇高的理想而战'],
   focusIndex: -1,
 })
-
-const markdown = mp.markdown
 
 const task = {
   focus(index: number) {
@@ -100,12 +96,6 @@ const task = {
           background: rgba(0, 0, 0, 0.02);
         }
       }
-    }
-
-    .markdown {
-      color: #666;
-      padding: 0 10px;
-      min-height: 24px;
     }
   }
 }

@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import axios from 'axios'
+import api from '@/plugins/api'
 
 const { availableLocales: locales, locale, getLocaleMessage } = useI18n()
 
@@ -19,7 +19,7 @@ const change = () => {
   localStorage.setItem('lang', locale.value)
 }
 
-axios.get('https://43.139.26.30:1976/').then((res) => {
+api.get('/note/2f').then((res) => {
   console.log('🌊', res)
 })
 </script>

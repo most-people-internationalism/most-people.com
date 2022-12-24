@@ -2,12 +2,29 @@ import { t } from '@/plugins/i18n'
 import MarkdownIt from 'markdown-it'
 import Api from '@/plugins/api'
 
+import { Wallet } from 'ethers'
+import { sha3_256 } from 'js-sha3'
+
 export const $t = t
 
+// api 接口
 export const api = Api
 
 export const mp = {
+  // password ——————————
+  passwordHash(password: string) {
+    const pepper = Wallet.createRandom().privateKey
+    return sha3_256(password + pepper) + '.' + pepper
+  },
+  passwordVerify(password: string, passwordHash: string) {
+    const [hash, pepper] = passwordHash.split('.')
+    return hash === sha3_256(password + pepper)
+  },
+  // markdown ——————————
   markdown: new MarkdownIt('default', { breaks: true, linkify: true }),
+
+  // message ———————————
+  // 错误提示
   error(message: string) {
     ElMessage({
       message: message,
@@ -17,6 +34,7 @@ export const mp = {
       grouping: true,
     })
   },
+  // 成功提示
   success(message: string) {
     ElMessage({
       message,
@@ -26,6 +44,7 @@ export const mp = {
       grouping: true,
     })
   },
+  // 消息提示
   info(message: string) {
     ElMessage({
       message,
@@ -35,6 +54,8 @@ export const mp = {
       grouping: true,
     })
   },
+
+  // utils —————————————
   // 格式化网址
   openUrl(url: string) {
     // 默认 https

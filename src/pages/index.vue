@@ -88,8 +88,6 @@ useHead({ title: computed(() => $t('MostPeople')) })
 
 <style lang="scss">
 #page-index {
-  width: 61.8%;
-
   .logo {
     margin-top: 54px;
     display: flex;
@@ -292,6 +290,15 @@ useHead({ title: computed(() => $t('MostPeople')) })
       &.add:hover {
         color: #0f60ab;
       }
+    }
+  }
+}
+
+// pc
+@media screen and (min-width: 800px) {
+  #app {
+    > .mp-page {
+      width: 61.8%;
     }
   }
 }

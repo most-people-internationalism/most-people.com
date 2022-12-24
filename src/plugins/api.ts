@@ -1,11 +1,11 @@
 import Axios, { type AxiosResponse } from 'axios'
 
-const api = Axios.create({
+const axios = Axios.create({
   baseURL: 'http://localhost:8001',
 })
 
 // interceptors https://axios-http.com/zh/docs/interceptors
-api.interceptors.request.use(
+axios.interceptors.request.use(
   function (config) {
     return config
   },
@@ -14,25 +14,17 @@ api.interceptors.request.use(
   },
 )
 
-export const initError = (statusCode: number) => {
-  console.log('error code:', statusCode)
-}
-
 export const initResponse = (response: AxiosResponse) => {
-  if (!response.data?.statusCode) {
-    response.data = { ok: false, statusCode: 404 }
-  }
   // init error
-  if (response.data.statusCode === 200) {
-    response.data.ok = true
+  if (response.status === 200) {
+    return response.data
   } else {
-    response.data.ok = false
-    initError(response.data.statusCode)
+    mp.error(`请求失败，错误码：${response.status}`)
+    return null
   }
-  return response.data
 }
 
-api.interceptors.response.use(
+axios.interceptors.response.use(
   function (response) {
     return initResponse(response)
   },
@@ -41,4 +33,17 @@ api.interceptors.response.use(
   },
 )
 
+export interface Note {
+  is_public: boolean
+  user_id: number
+  arr: string[]
+  id: number
+  title: string
+}
+
+const api = {
+  getNote(id: string): Promise<Note | null> {
+    return axios({ url: '/note', params: { id } })
+  },
+}
 export default api

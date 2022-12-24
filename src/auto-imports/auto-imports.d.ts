@@ -3,7 +3,9 @@ export {}
 declare global {
   const $t: typeof import('../composables/most-people')['$t']
   const EffectScope: typeof import('vue')['EffectScope']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
+  const api: typeof import('../composables/most-people')['api']
   const computed: typeof import('vue')['computed']
   const createApp: typeof import('vue')['createApp']
   const createPinia: typeof import('pinia')['createPinia']

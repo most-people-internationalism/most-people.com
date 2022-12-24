@@ -1,10 +1,41 @@
 import { t } from '@/plugins/i18n'
 import MarkdownIt from 'markdown-it'
+import Api from '@/plugins/api'
 
 export const $t = t
 
+export const api = Api
+
 export const mp = {
   markdown: new MarkdownIt('default', { breaks: true, linkify: true }),
+  error(message: string) {
+    ElMessage({
+      message: message,
+      type: 'error',
+      // duration: 0,
+      customClass: 'mp-message-error',
+      grouping: true,
+    })
+  },
+  success(message: string) {
+    ElMessage({
+      message,
+      type: 'success',
+      // duration: 0,
+      customClass: 'mp-message-success',
+      grouping: true,
+    })
+  },
+  info(message: string) {
+    ElMessage({
+      message,
+      type: 'info',
+      // duration: 0,
+      customClass: 'mp-message-success',
+      grouping: true,
+    })
+  },
+  // 格式化网址
   openUrl(url: string) {
     // 默认 https
     if (url.startsWith('http')) {

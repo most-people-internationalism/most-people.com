@@ -2,7 +2,9 @@
   "globals": {
     "$t": true,
     "EffectScope": true,
+    "ElMessage": true,
     "acceptHMRUpdate": true,
+    "api": true,
     "computed": true,
     "createApp": true,
     "createPinia": true,

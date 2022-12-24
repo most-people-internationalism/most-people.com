@@ -14,12 +14,20 @@ axios.interceptors.request.use(
   },
 )
 
+const showCode: { [key: string]: string } = {
+  404: '请求失败，请检查网络',
+}
+
 export const initResponse = (response: AxiosResponse) => {
-  // init error
-  if (response.status === 200) {
+  if (response?.status === 200) {
     return response.data
   } else {
-    mp.error(`请求失败，错误码：${response.status}`)
+    const code = String(response?.status || 404)
+    if (showCode[code]) {
+      mp.error(showCode[code])
+    } else {
+      mp.error(`请求失败，错误码：${code}`)
+    }
     return null
   }
 }
@@ -34,16 +42,21 @@ axios.interceptors.response.use(
 )
 
 export interface Note {
-  is_public: boolean
-  user_id: number
-  arr: string[]
-  id: number
   title: string
+  list: string[]
+  note_id: number
+  user_id: number
+  is_public: boolean
+  updated_time?: string
+  author?: number[]
 }
 
 const api = {
-  getNote(id: string): Promise<Note | null> {
+  getNote(id: string): Promise<null | Note> {
     return axios({ url: '/note', params: { id } })
+  },
+  getUser(id: string) {
+    return axios({ url: '/user', params: { id } })
   },
 }
 export default api

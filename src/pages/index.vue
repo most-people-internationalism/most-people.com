@@ -88,6 +88,8 @@ useHead({ title: computed(() => $t('MostPeople')) })
 
 <style lang="scss">
 #page-index {
+  width: 61.8%;
+
   .logo {
     margin-top: 54px;
     display: flex;

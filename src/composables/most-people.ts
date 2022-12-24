@@ -2,7 +2,7 @@ import { t } from '@/plugins/i18n'
 import MarkdownIt from 'markdown-it'
 import Api from '@/plugins/api'
 
-import { Wallet } from 'ethers'
+import { Wallet, utils } from 'ethers'
 import { sha3_256 } from 'js-sha3'
 
 export const $t = t
@@ -146,7 +146,5 @@ export const mp = {
     }
   },
   // 深拷贝
-  deepCopy(data: any) {
-    return this.json(JSON.stringify(data))
-  },
+  deepCopy: utils.deepCopy,
 }

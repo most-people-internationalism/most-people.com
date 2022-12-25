@@ -16,6 +16,16 @@ const getLabel = (item: string) => {
 const change = () => {
   localStorage.setItem('lang', locale.value)
 }
+
+const init = () => {
+  const passwordKdf = mp.passwordKdf('sea', '嘟嘟嘟')
+  const passwordHash = mp.passwordHash(passwordKdf)
+  const mi = mp.encrypt(passwordHash, '我喜欢你')
+  const text = mp.decrypt(passwordHash, mi)
+  console.log('🌊', mi)
+  console.log('🌊', text)
+}
+init()
 </script>
 
 <style lang="scss"></style>

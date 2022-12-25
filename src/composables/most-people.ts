@@ -2,8 +2,9 @@ import { t } from '@/plugins/i18n'
 import MarkdownIt from 'markdown-it'
 import Api from '@/plugins/api'
 
-import { utils } from 'ethers'
-import { sha3_256 } from 'js-sha3'
+import { utils, Wallet } from 'ethers'
+import { sha3_256, sha3_224 } from 'js-sha3'
+import aesjs from 'aes-js'
 
 export const $t = t
 
@@ -12,78 +13,40 @@ export const api = Api
 
 export const mp = {
   // password ——————————
-  passwordKdf(password: string, username: string) {
+  passwordKdf(username: string, password: string) {
     return sha3_256(password + '/mp/' + username)
   },
-  async passwordHash(passwordKdf: string) {
-    const privateKey = await this.generateKey()
-    return privateKey + '.' + sha3_256(passwordKdf + privateKey)
+  passwordHash(passwordKdf: string) {
+    const pepper = Wallet.createRandom().privateKey
+    return pepper + '.' + sha3_256(passwordKdf + pepper)
   },
   passwordVerify(passwordKdf: string, passwordHash: string) {
     const [privateKey, hash] = passwordHash.split('.')
     return hash === sha3_256(passwordKdf + privateKey)
   },
-  async generateKey() {
-    // https://gist.github.com/pedrouid/b4056fd1f754918ddae86b32cf7d803e#aes-gcm
-    const key = await window.crypto.subtle.generateKey(
-      {
-        name: 'AES-GCM',
-        length: 256,
-      },
-      true,
-      ['encrypt', 'decrypt'],
-    )
-    const keyData = await window.crypto.subtle.exportKey('raw', key)
-    const privateKey = utils.hexlify(new Uint8Array(keyData))
-    return privateKey
-  },
   // 加密
-  async encrypt(passwordKdf: string, privateKey: string, s: string) {
-    const buffer = utils.arrayify(privateKey)
-    const key = await window.crypto.subtle.importKey(
-      'raw',
-      buffer,
-      {
-        name: 'AES-GCM',
-      },
-      true,
-      ['encrypt', 'decrypt'],
-    )
-    const iv = utils.toUtf8Bytes(passwordKdf).slice(-16)
-    const encrypted = await window.crypto.subtle.encrypt(
-      {
-        name: 'AES-GCM',
-        iv,
-        tagLength: 128,
-      },
-      key,
-      utils.toUtf8Bytes(s),
-    )
-    return utils.hexlify(new Uint8Array(encrypted))
+  encrypt(passwordHash: string, text: string) {
+    const array = utils.toUtf8Bytes(sha3_224(passwordHash))
+    const key = array.slice(-32)
+    const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5))
+
+    const textBytes = aesjs.utils.utf8.toBytes(text)
+    const encryptedBytes = aesCtr.encrypt(textBytes)
+    const encrypted = aesjs.utils.hex.fromBytes(encryptedBytes)
+
+    return encrypted
   },
   // 解密
-  async decrypt(passwordKdf: string, privateKey: string, encrypted: string) {
-    const buffer = utils.arrayify(privateKey)
-    const key = await window.crypto.subtle.importKey(
-      'raw',
-      buffer,
-      {
-        name: 'AES-GCM',
-      },
-      true,
-      ['encrypt', 'decrypt'],
-    )
-    const iv = utils.toUtf8Bytes(passwordKdf).slice(-16)
-    const decrypted = await window.crypto.subtle.decrypt(
-      {
-        name: 'AES-GCM',
-        iv,
-        tagLength: 128,
-      },
-      key,
-      utils.arrayify(encrypted),
-    )
-    return utils.toUtf8String(new Uint8Array(decrypted))
+  decrypt(passwordHash: string, encrypted: string) {
+    const array = utils.toUtf8Bytes(sha3_224(passwordHash))
+    const key = array.slice(-32)
+    const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5))
+
+    const encryptedBytes = aesjs.utils.hex.toBytes(encrypted)
+    const decryptedBytes = aesCtr.decrypt(encryptedBytes)
+    const text = aesjs.utils.utf8.fromBytes(decryptedBytes)
+
+    return text
   },
 
   // markdown ——————————

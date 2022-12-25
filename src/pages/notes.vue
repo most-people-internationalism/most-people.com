@@ -8,7 +8,7 @@
 useHead({ title: computed(() => $t('Notes')) })
 
 onMounted(async () => {
-  const passwordKdf = mp.passwordKdf('天下为公')
+  const passwordKdf = mp.passwordKdf('天下为公', 'sea')
   const passwordHash = await mp.passwordHash(passwordKdf)
   const [privateKey] = passwordHash.split('.')
   const ok = mp.passwordVerify(passwordKdf, passwordHash)

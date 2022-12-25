@@ -13,7 +13,7 @@ export const api = Api
 export const mp = {
   // password ——————————
   passwordKdf(password: string, username: string) {
-    return sha3_256(password + 'most-people.com/' + username)
+    return sha3_256(password + '/mp/' + username)
   },
   async passwordHash(passwordKdf: string) {
     const privateKey = await this.generateKey()

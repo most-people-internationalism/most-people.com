@@ -7,8 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import api from '@/plugins/api'
-
 const { availableLocales: locales, locale, getLocaleMessage } = useI18n()
 
 const getLabel = (item: string) => {
@@ -18,10 +16,6 @@ const getLabel = (item: string) => {
 const change = () => {
   localStorage.setItem('lang', locale.value)
 }
-
-api.get('/note/2f').then((res) => {
-  console.log('🌊', res)
-})
 </script>
 
 <style lang="scss"></style>

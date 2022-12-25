@@ -5,6 +5,7 @@ import Api from '@/plugins/api'
 import { utils, Wallet } from 'ethers'
 import { sha3_256, sha3_224 } from 'js-sha3'
 import aesjs from 'aes-js'
+import { pbkdf2 } from '@ethersproject/pbkdf2'
 
 export const $t = t
 
@@ -14,7 +15,10 @@ export const api = Api
 export const mp = {
   // password ——————————
   passwordKdf(username: string, password: string) {
-    return sha3_256(password + '/mp/' + username)
+    const p = utils.toUtf8Bytes(password)
+    const salt = utils.toUtf8Bytes('/mp/' + username)
+    const kdf = pbkdf2(p, salt, 1, 256 / 8, 'sha512')
+    return kdf
   },
   passwordHash(passwordKdf: string) {
     const pepper = Wallet.createRandom().privateKey
@@ -25,8 +29,13 @@ export const mp = {
     return hash === sha3_256(passwordKdf + privateKey)
   },
   // 加密
-  encrypt(passwordHash: string, text: string) {
-    const array = utils.toUtf8Bytes(sha3_224(passwordHash))
+  encrypt(text: string) {
+    const passwordKdf = window.localStorage.getItem('kdf')
+    if (!passwordKdf) {
+      console.error('not found kdf to encrypt')
+      return ''
+    }
+    const array = utils.toUtf8Bytes(sha3_224(passwordKdf))
     const key = array.slice(-32)
     const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5))
 
@@ -37,8 +46,13 @@ export const mp = {
     return encrypted
   },
   // 解密
-  decrypt(passwordHash: string, encrypted: string) {
-    const array = utils.toUtf8Bytes(sha3_224(passwordHash))
+  decrypt(encrypted: string) {
+    const passwordKdf = window.localStorage.getItem('kdf')
+    if (!passwordKdf) {
+      console.error('not found kdf to decrypt')
+      return ''
+    }
+    const array = utils.toUtf8Bytes(sha3_224(passwordKdf))
     const key = array.slice(-32)
     const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5))
 

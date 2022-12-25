@@ -23,7 +23,10 @@ const note = ref<Note>({
 onBeforeMount(async () => {
   const res = await api.getNote(route.params.id as string)
   if (res) {
+    const mi = mp.encrypt(JSON.stringify(res.list))
+    res.list = []
     note.value = res
+    note.value.list = JSON.parse(mp.decrypt(mi))
   }
 })
 </script>

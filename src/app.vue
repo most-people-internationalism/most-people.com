@@ -21,7 +21,9 @@
   <router-view class="mp-page" />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+localStorage.setItem('kdf', mp.passwordKdf('sea', '嘟嘟嘟'))
+</script>
 
 <style lang="scss">
 #app {

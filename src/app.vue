@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-localStorage.setItem('kdf', mp.passwordKdf('sea', '嘟嘟嘟'))
+// localStorage.setItem('kdf', mp.passwordKdf('sea', '嘟嘟嘟'))
 </script>
 
 <style lang="scss">

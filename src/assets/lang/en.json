@@ -23,5 +23,11 @@
   "Douban": "douban",
   "YouTube": "YouTube",
   "Github": "Github",
-  "MyLanguage": "English"
+  "MyLanguage": "English",
+  "PasswordsNotMatch": "Passwords do not match, please re-enter",
+  "PasswordEmpty": "Please enter password",
+  "PasswordRule1": "Needs 4-32 characters",
+  "PasswordRule2": "At least 1 upper-case letter",
+  "PasswordRule3": "At least 1 lower-case letter",
+  "PasswordRule4": "At least 1 number"
 }

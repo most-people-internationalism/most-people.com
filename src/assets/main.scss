@@ -3,7 +3,7 @@
   --text: #000;
 
   // element plus
-  --el-color-primary: var(--text);
+  // --el-color-primary: pink;
 }
 
 *,
@@ -53,3 +53,7 @@ img {
 input[type="search"]::-webkit-search-cancel-button {
   appearance: none;
 }
+
+// element
+@import 'element-plus/dist/index.css';
+@import 'element-plus/theme-chalk/dark/css-vars.css';

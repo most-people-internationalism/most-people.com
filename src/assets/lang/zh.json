@@ -23,5 +23,11 @@
   "YouTube": "YouTube",
   "Github": "Github",
   "Douban": "豆瓣",
-  "MyLanguage": "中文简体"
+  "MyLanguage": "中文简体",
+  "PasswordsNotMatch": "两次密码不一致，请重新输入",
+  "PasswordEmpty": "请输入密码",
+  "PasswordRule1": "密码长度为 4-32 位",
+  "PasswordRule2": "至少1个大写字母",
+  "PasswordRule3": "至少1个小写字母",
+  "PasswordRule4": "至少1个数字"
 }

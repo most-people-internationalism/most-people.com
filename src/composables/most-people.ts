@@ -14,19 +14,23 @@ export const api = Api
 
 export const mp = {
   // password ——————————
+
+  // 本地私钥
   passwordKdf(username: string, password: string) {
     const p = utils.toUtf8Bytes(password)
     const salt = utils.toUtf8Bytes('/mp/' + username)
     const kdf = pbkdf2(p, salt, 1, 256 / 8, 'sha512')
     return kdf
   },
+  // 服务器密码哈希
   passwordHash(passwordKdf: string) {
     const pepper = Wallet.createRandom().privateKey
     return pepper + '.' + sha3_256(passwordKdf + pepper)
   },
+  // 验证
   passwordVerify(passwordKdf: string, passwordHash: string) {
-    const [privateKey, hash] = passwordHash.split('.')
-    return hash === sha3_256(passwordKdf + privateKey)
+    const [pepper, hash] = passwordHash.split('.')
+    return hash === sha3_256(passwordKdf + pepper)
   },
   // 加密
   encrypt(text: string) {
@@ -64,9 +68,11 @@ export const mp = {
   },
 
   // markdown ——————————
+
   markdown: new MarkdownIt('default', { breaks: true, linkify: true }),
 
   // message ———————————
+
   // 错误提示
   error(message: string) {
     ElMessage({
@@ -99,6 +105,7 @@ export const mp = {
   },
 
   // utils —————————————
+
   // 格式化网址
   openUrl(url: string) {
     // 默认 https
@@ -179,7 +186,7 @@ export const mp = {
     return new URL(url)
   },
   // 本地存储
-  localStorage(key: string, val: string) {
+  localStorage(key: string, val?: string) {
     if (val === undefined) {
       return this.json(window.localStorage.getItem(key) || '')
     } else if (val === '') {

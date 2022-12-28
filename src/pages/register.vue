@@ -1,7 +1,11 @@
 <template>
   <div id="page-register" class="page-login">
     <el-form @submit.prevent ref="formElement" :model="form" label-width="auto">
-      <el-form-item label="用户名">
+      <el-form-item
+        label="用户名"
+        prop="username"
+        :rules="[{ validator: checkUsername, trigger: 'blur' }]"
+      >
         <el-input v-model="form.username" clearable></el-input>
       </el-form-item>
       <el-form-item
@@ -9,19 +13,14 @@
         prop="password"
         :rules="[{ validator: checkPassword, trigger: 'blur' }]"
       >
-        <el-input v-model.trim="form.password" type="password" show-password clearable></el-input>
+        <el-input v-model.trim="form.password" show-password clearable></el-input>
       </el-form-item>
       <el-form-item
         label="确认密码"
         prop="confirmPassword"
         :rules="[{ validator: checkConfirmPassword, trigger: 'blur' }]"
       >
-        <el-input
-          v-model.trim="form.confirmPassword"
-          type="password"
-          show-password
-          clearable
-        ></el-input>
+        <el-input v-model.trim="form.confirmPassword" show-password clearable></el-input>
       </el-form-item>
       <el-button @click="register">注册</el-button>
     </el-form>
@@ -32,7 +31,7 @@
 import { ElMessageBox, type FormInstance } from 'element-plus'
 
 const form = reactive({
-  username: 'sea',
+  username: '',
   password: '德玛西亚',
   confirmPassword: '德玛西亚',
 })
@@ -43,7 +42,6 @@ const register = () => {
   if (!formElement.value) return
   formElement.value.validate(async (ok) => {
     if (ok) {
-      // const passwordKdf = mp.passwordKdf(form.username, form.password)
       ElMessageBox.prompt('请牢记您的密码，本站数据库全网公开加密，忘记密码将失去账号。', {
         closeOnClickModal: false,
         closeOnPressEscape: false,
@@ -64,7 +62,8 @@ const register = () => {
         inputErrorMessage: '不支持特殊字符',
       })
         .then(() => {
-          //
+          const passwordKdf = mp.passwordKdf(form.username, form.password)
+          console.log('🌊', passwordKdf)
         })
         .catch(() => {
           //
@@ -73,6 +72,13 @@ const register = () => {
   })
 }
 
+const checkUsername = (_rule: any, v: string, callback: (err?: Error) => void) => {
+  const username = v
+  if (!username) {
+    return callback(new Error($t('UsernameEmpty')))
+  }
+  callback()
+}
 const checkPassword = (_rule: any, v: string, callback: (err?: Error) => void) => {
   const password = v
   if (!password) {

@@ -29,5 +29,6 @@
   "PasswordRule1": "密码长度为 4-32 位",
   "PasswordRule2": "至少1个大写字母",
   "PasswordRule3": "至少1个小写字母",
-  "PasswordRule4": "至少1个数字"
+  "PasswordRule4": "至少1个数字",
+  "UsernameEmpty": "请输入用户名"
 }

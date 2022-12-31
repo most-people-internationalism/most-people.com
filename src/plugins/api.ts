@@ -19,10 +19,12 @@ const showCode: { [key: string]: string } = {
 }
 
 export const initResponse = (response: AxiosResponse) => {
-  if (response?.status === 200) {
+  const status = response?.status || 404
+  // 2xx
+  if (status >= 200 && status < 300) {
     return response.data
   } else {
-    const code = String(response?.status || 404)
+    const code = String(status)
     if (showCode[code]) {
       mp.error(showCode[code])
     } else {
@@ -42,21 +44,39 @@ axios.interceptors.response.use(
 )
 
 export interface Note {
-  title: string
-  list: string[]
   note_id: number
   user_id: number
+  title: string
+  list: string[]
   is_public: boolean
+
   updated_time?: string
   author?: number[]
+}
+
+export interface User {
+  user_id: number
+  name: string
+  password_hash: string
+  sign_time: string
+
+  task_list?: string[]
+  task_history?: string[]
+  motto?: string
 }
 
 const api = {
   getNote(id: string): Promise<null | Note> {
     return axios({ url: '/note', params: { id } })
   },
-  getUser(id: string) {
+  getUser(id: string): Promise<null | User> {
     return axios({ url: '/user', params: { id } })
+  },
+  checkUserName(name: string): Promise<null | boolean> {
+    return axios({ method: 'post', url: '/user/check.name', data: { name } })
+  },
+  register(name: string, passwordHash: string): Promise<null | User> {
+    return axios({ method: 'post', url: '/user/register', data: { name, passwordHash } })
   },
 }
 export default api

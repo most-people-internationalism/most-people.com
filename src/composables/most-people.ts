@@ -1,6 +1,6 @@
 import { t } from '@/plugins/i18n'
 import MarkdownIt from 'markdown-it'
-import Api from '@/plugins/api'
+import _api from '@/plugins/api'
 
 import { utils, Wallet } from 'ethers'
 import { sha3_256, sha3_224 } from 'js-sha3'
@@ -10,7 +10,7 @@ import { pbkdf2 } from '@ethersproject/pbkdf2'
 export const $t = t
 
 // api 接口
-export const api = Api
+export const api = _api
 
 export const mp = {
   // password ——————————

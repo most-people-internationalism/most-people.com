@@ -1,6 +1,7 @@
 import { t } from '@/plugins/i18n'
 import MarkdownIt from 'markdown-it'
 import _api from '@/plugins/api'
+import indexdb from '@/plugins/indexdb'
 
 import { utils, Wallet } from 'ethers'
 import { sha3_256, sha3_224 } from 'js-sha3'
@@ -13,9 +14,23 @@ export const $t = t
 export const api = _api
 
 export const mp = {
+  indexdb,
   // password ——————————
 
   // 本地私钥
+  async passwordKey(username: string, password: string) {
+    const p = utils.toUtf8Bytes(password)
+    const salt = utils.toUtf8Bytes('/mp/' + username)
+    const kdf = pbkdf2(p, salt, 1, 256 / 8, 'sha512')
+    const array = utils.toUtf8Bytes(sha3_224(kdf))
+    const keydata = array.slice(-32)
+    // https://gist.github.com/pedrouid/b4056fd1f754918ddae86b32cf7d803e#aes-gcm
+    const key = await window.crypto.subtle.importKey('raw', keydata, { name: 'AES-GCM' }, false, [
+      'encrypt',
+      'decrypt',
+    ])
+    return key
+  },
   passwordKdf(username: string, password: string) {
     const p = utils.toUtf8Bytes(password)
     const salt = utils.toUtf8Bytes('/mp/' + username)
@@ -33,21 +48,42 @@ export const mp = {
     return hash === sha3_256(passwordKdf + pepper)
   },
   // 加密
-  encrypt(text: string) {
-    const passwordKdf = window.localStorage.getItem('kdf')
-    if (!passwordKdf) {
-      console.error('not found kdf to encrypt')
-      return ''
-    }
-    const array = utils.toUtf8Bytes(sha3_224(passwordKdf))
-    const key = array.slice(-32)
-    const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5))
+  encrypt(text: string, key?: CryptoKey) {
+    // const passwordKdf = window.localStorage.getItem('kdf')
+    // if (!passwordKdf) {
+    //   console.error('not found kdf to encrypt')
+    //   return ''
+    // }
+    // const array = utils.toUtf8Bytes(sha3_224(passwordKdf))
+    // const key = array.slice(-32)
+    // const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5))
 
-    const textBytes = aesjs.utils.utf8.toBytes(text)
-    const encryptedBytes = aesCtr.encrypt(textBytes)
-    const encrypted = aesjs.utils.hex.fromBytes(encryptedBytes)
+    // const textBytes = aesjs.utils.utf8.toBytes(text)
+    // const encryptedBytes = aesCtr.encrypt(textBytes)
+    // const encrypted = aesjs.utils.hex.fromBytes(encryptedBytes)
 
-    return encrypted
+    // return encrypted
+    const pepper = Wallet.createRandom().privateKey
+    const iv = window.crypto.getRandomValues(new Uint8Array(12))
+    console.log('🌊', utils.toUtf8Bytes(pepper))
+    // window.crypto.subtle.encrypt(
+    //   {
+    //     name: 'AES-GCM',
+
+    //     //Don't re-use initialization vectors!
+    //     //Always generate a new iv every time your encrypt!
+    //     //Recommended to use 12 bytes length
+    //     iv,
+
+    //     //Additional authentication data (optional)
+    //     additionalData: ArrayBuffer,
+
+    //     //Tag length (optional)
+    //     tagLength: 128, //can be 32, 64, 96, 104, 112, 120 or 128 (default)
+    //   },
+    //   key, //from generateKey or importKey above
+    //   data, //ArrayBuffer of data you want to encrypt
+    // )
   },
   // 解密
   decrypt(encrypted: string) {
@@ -184,16 +220,6 @@ export const mp = {
       url = 'https://' + url
     }
     return new URL(url)
-  },
-  // 本地存储
-  localStorage(key: string, val?: string) {
-    if (val === undefined) {
-      return this.json(window.localStorage.getItem(key) || '')
-    } else if (val === '') {
-      window.localStorage.removeItem(key)
-    } else {
-      window.localStorage.setItem(key, JSON.stringify(val))
-    }
   },
   // 深拷贝
   deepCopy: utils.deepCopy,

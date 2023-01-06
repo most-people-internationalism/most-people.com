@@ -3,10 +3,8 @@ import generatedRoutes from 'virtual:generated-pages'
 
 const routes = generatedRoutes
 
-const env = import.meta.env
-
 const router = createRouter({
-  history: createWebHistory(env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
 

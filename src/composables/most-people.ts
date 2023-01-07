@@ -48,59 +48,48 @@ export const mp = {
     return hash === sha3_256(passwordKdf + pepper)
   },
   // 加密
-  encrypt(text: string, key?: CryptoKey) {
-    // const passwordKdf = window.localStorage.getItem('kdf')
-    // if (!passwordKdf) {
-    //   console.error('not found kdf to encrypt')
-    //   return ''
-    // }
-    // const array = utils.toUtf8Bytes(sha3_224(passwordKdf))
-    // const key = array.slice(-32)
-    // const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5))
-
-    // const textBytes = aesjs.utils.utf8.toBytes(text)
-    // const encryptedBytes = aesCtr.encrypt(textBytes)
-    // const encrypted = aesjs.utils.hex.fromBytes(encryptedBytes)
-
-    // return encrypted
-    const pepper = Wallet.createRandom().privateKey
-    const iv = window.crypto.getRandomValues(new Uint8Array(12))
-    console.log('🌊', utils.toUtf8Bytes(pepper))
-    // window.crypto.subtle.encrypt(
-    //   {
-    //     name: 'AES-GCM',
-
-    //     //Don't re-use initialization vectors!
-    //     //Always generate a new iv every time your encrypt!
-    //     //Recommended to use 12 bytes length
-    //     iv,
-
-    //     //Additional authentication data (optional)
-    //     additionalData: ArrayBuffer,
-
-    //     //Tag length (optional)
-    //     tagLength: 128, //can be 32, 64, 96, 104, 112, 120 or 128 (default)
-    //   },
-    //   key, //from generateKey or importKey above
-    //   data, //ArrayBuffer of data you want to encrypt
-    // )
-  },
-  // 解密
-  decrypt(encrypted: string) {
-    const passwordKdf = window.localStorage.getItem('kdf')
-    if (!passwordKdf) {
-      console.error('not found kdf to decrypt')
+  async encrypt(text: string, key?: CryptoKey) {
+    if (!key) {
+      console.error('not found key')
       return ''
     }
-    const array = utils.toUtf8Bytes(sha3_224(passwordKdf))
-    const key = array.slice(-32)
-    const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5))
-
-    const encryptedBytes = aesjs.utils.hex.toBytes(encrypted)
-    const decryptedBytes = aesCtr.decrypt(encryptedBytes)
-    const text = aesjs.utils.utf8.fromBytes(decryptedBytes)
-
-    return text
+    const version = 1
+    const iv = String(Date.now())
+    const encryptedBytes = await window.crypto.subtle.encrypt(
+      {
+        name: 'AES-GCM',
+        iv: utils.toUtf8Bytes(iv),
+        tagLength: 32,
+      },
+      key,
+      utils.toUtf8Bytes(text),
+    )
+    const data = utils.hexlify(new Uint8Array(encryptedBytes)).slice(2)
+    const encrypted = ['mp://' + version, iv, data]
+    return encrypted.join('.')
+  },
+  // 解密
+  async decrypt(encrypted: string, key?: CryptoKey) {
+    if (!key) {
+      console.error('not found key')
+      return ''
+    }
+    const [version, iv, data] = encrypted.split('.')
+    if (version !== 'mp://1') {
+      console.error('version error')
+      return ''
+    }
+    const decryptedBytes = await window.crypto.subtle.decrypt(
+      {
+        name: 'AES-GCM',
+        iv: utils.toUtf8Bytes(iv),
+        tagLength: 32,
+      },
+      key,
+      utils.arrayify('0x' + data),
+    )
+    const decrypted = utils.toUtf8String(new Uint8Array(decryptedBytes))
+    return decrypted
   },
 
   // markdown ——————————

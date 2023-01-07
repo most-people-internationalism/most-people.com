@@ -22,7 +22,10 @@ const userStore = useUserStore()
 
 const login = async () => {
   const key = await mp.passwordKey(form.username, form.password)
-  mp.encrypt('sea', key)
+  const encode = await mp.encrypt(form.username, key)
+  console.log('🌊', encode)
+  const decode = await mp.decrypt(encode, key)
+  console.log('🌊', decode)
   // const ok = await mp.indexdb.setUser(form.username, key)
   // if (ok) {
   //   window.localStorage.setItem('username', form.username)

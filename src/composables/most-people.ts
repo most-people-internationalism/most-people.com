@@ -80,17 +80,21 @@ export const mp = {
       console.error('version error')
       return ''
     }
-    const decryptedBytes = await window.crypto.subtle.decrypt(
-      {
-        name: 'AES-GCM',
-        iv: utils.toUtf8Bytes(iv),
-        tagLength: 32,
-      },
-      key,
-      utils.arrayify('0x' + data),
-    )
-    const decrypted = utils.toUtf8String(new Uint8Array(decryptedBytes))
-    return decrypted
+    try {
+      const decryptedBytes = await window.crypto.subtle.decrypt(
+        {
+          name: 'AES-GCM',
+          iv: utils.toUtf8Bytes(iv),
+          tagLength: 32,
+        },
+        key,
+        utils.arrayify('0x' + data),
+      )
+      const decrypted = utils.toUtf8String(new Uint8Array(decryptedBytes))
+      return decrypted
+    } catch (error) {
+      return ''
+    }
   },
 
   // markdown ——————————

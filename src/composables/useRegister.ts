@@ -76,7 +76,6 @@ export const useRegister = () => {
     if (/^\S{4,32}$/.test(password) === false) {
       return callback(new Error($t('PasswordRule1')))
     }
-
     // if (/(?=.*[A-Z])(?=.*\S)[^]/.test(password) === false) {
     //   return callback(new Error($t('PasswordRule2')))
     // }

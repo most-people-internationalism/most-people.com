@@ -1,7 +1,7 @@
 // 阮一峰 : 浏览器数据库 IndexedDB 入门教程
 // https://www.ruanyifeng.com/blog/2018/07/indexeddb.html
 
-export interface User {
+export interface UserDB {
   name: string
   key: CryptoKey
 }
@@ -23,7 +23,7 @@ const indexdb = {
     }
   },
   // 获取用户
-  getUser(name: string): Promise<User | null> {
+  getUser(name: string): Promise<UserDB | null> {
     return new Promise((resolve) => {
       if (!db) {
         resolve(null)
@@ -33,7 +33,7 @@ const indexdb = {
       const request = store.get(name)
       request.onsuccess = () => {
         if (request.result) {
-          const user: User = request.result
+          const user: UserDB = request.result
           resolve(user)
         } else {
           resolve(null)

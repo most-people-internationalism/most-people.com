@@ -22,7 +22,7 @@ export const initResponse = (response: AxiosResponse) => {
   const status = response?.status || 404
   // 2xx
   if (status >= 200 && status < 300) {
-    return response.data
+    return response.data || null
   } else {
     const code = String(status)
     if (showCode[code]) {
@@ -66,16 +66,16 @@ export interface User {
 }
 
 const api = {
-  getNote(id: string): Promise<null | Note> {
+  getNote(id: string): Promise<Note | null> {
     return axios({ url: '/note', params: { id } })
   },
-  getUser(id: string): Promise<null | User> {
-    return axios({ url: '/user', params: { id } })
+  getUser(name: string): Promise<User | null> {
+    return axios({ url: '/user', params: { name } })
   },
-  checkUserName(name: string): Promise<null | boolean> {
+  checkUserName(name: string): Promise<boolean> {
     return axios({ method: 'post', url: '/user/check.name', data: { name } })
   },
-  register(name: string, passwordHash: string): Promise<null | User> {
+  register(name: string, passwordHash: string): Promise<User | null> {
     return axios({ method: 'post', url: '/user/register', data: { name, passwordHash } })
   },
 }

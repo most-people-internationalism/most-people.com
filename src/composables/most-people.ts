@@ -5,14 +5,15 @@ import indexdb from '@/plugins/indexdb'
 
 import { utils, Wallet } from 'ethers'
 import { sha3_256, sha3_224 } from 'js-sha3'
-import aesjs from 'aes-js'
 import { pbkdf2 } from '@ethersproject/pbkdf2'
 
+// i18n
 export const $t = t
 
-// api 接口
+// api
 export const api = _api
 
+// mp
 export const mp = {
   indexdb,
   // password ——————————

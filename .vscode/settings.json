@@ -9,6 +9,7 @@
     "hexlify",
     "iconfont",
     "iconpark",
+    "indexdb",
     "noopener",
     "pinia",
     "rushstack",
@@ -22,9 +23,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "i18n-ally.localesPaths": [
-    "src/assets/lang"
-  ],
+  "i18n-ally.localesPaths": ["src/assets/lang"],
   "i18n-ally.keystyle": "nested",
   "i18n-ally.editor.preferEditor": true,
   "i18n-ally.displayLanguage": "zh",

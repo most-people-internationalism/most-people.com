@@ -79,4 +79,5 @@ const api = {
     return axios({ method: 'post', url: '/user/register', data: { name, passwordHash } })
   },
 }
+
 export default api

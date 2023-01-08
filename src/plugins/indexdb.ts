@@ -1,7 +1,7 @@
 // 阮一峰 : 浏览器数据库 IndexedDB 入门教程
 // https://www.ruanyifeng.com/blog/2018/07/indexeddb.html
 
-export interface UserIndexDB {
+export interface User {
   name: string
   key: CryptoKey
 }
@@ -23,7 +23,7 @@ const indexdb = {
     }
   },
   // 获取用户
-  getUser(name: string): Promise<UserIndexDB | null> {
+  getUser(name: string): Promise<User | null> {
     return new Promise((resolve) => {
       if (!db) {
         resolve(null)
@@ -31,17 +31,16 @@ const indexdb = {
       }
       const store = db.transaction(['user']).objectStore('user')
       const request = store.get(name)
-      request.onerror = () => {
-        resolve(null)
-      }
-
       request.onsuccess = () => {
         if (request.result) {
-          const user: UserIndexDB = request.result
+          const user: User = request.result
           resolve(user)
         } else {
           resolve(null)
         }
+      }
+      request.onerror = () => {
+        resolve(null)
       }
     })
   },
@@ -54,12 +53,13 @@ const indexdb = {
         return
       }
       const store = db.transaction(['user'], 'readwrite').objectStore('user')
-      const request = store.add({ name, key })
+      const request = store.put({ name, key })
       request.onsuccess = () => {
+        window.localStorage.setItem('username', name)
         resolve(true)
       }
       request.onerror = () => {
-        resolve(true)
+        resolve(false)
       }
     })
   },
@@ -77,7 +77,7 @@ const indexdb = {
         resolve(true)
       }
       request.onerror = () => {
-        resolve(true)
+        resolve(false)
       }
     })
   },

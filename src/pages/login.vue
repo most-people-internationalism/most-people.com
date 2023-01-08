@@ -22,17 +22,11 @@ const userStore = useUserStore()
 
 const login = async () => {
   const key = await mp.passwordKey(form.username, form.password)
-  const encode = await mp.encrypt(form.username, key)
-  console.log('🌊', encode)
-  const decode = await mp.decrypt(encode, key)
-  console.log('🌊', decode)
-  // const ok = await mp.indexdb.setUser(form.username, key)
-  // if (ok) {
-  //   window.localStorage.setItem('username', form.username)
-  // }
-
-  // const user = await userStore.indexdb.getUser('张三')
-  // const ok = await userStore.indexdb.delUser('张三')
-  // const ok = await userStore.indexdb.setUser(form.username, key)
+  // const encode = await mp.encrypt(form.username, key)
+  // console.log('🌊', encode)
+  // const decode = await mp.decrypt(encode, key)
+  // console.log('🌊', decode)
+  const ok = await mp.indexdb.setUser(form.username, key)
+  console.log('🌊', ok)
 }
 </script>

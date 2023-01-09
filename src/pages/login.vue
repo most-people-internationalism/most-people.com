@@ -1,6 +1,12 @@
 <template>
   <div id="page-login">
-    <el-form @submit.prevent ref="formElement" :model="form" label-width="auto">
+    <el-form
+      @submit.prevent
+      ref="formElement"
+      :model="form"
+      label-width="auto"
+      :disabled="form.loading"
+    >
       <el-form-item
         label="用户名"
         prop="username"
@@ -15,7 +21,7 @@
       >
         <el-input v-model="form.password"></el-input>
       </el-form-item>
-      <el-button @click="login">登录</el-button>
+      <el-button @click="login" :loading="form.loading">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -26,23 +32,33 @@ import type { FormInstance } from 'element-plus'
 const form = reactive({
   username: '婆婆',
   password: '',
+  loading: false,
 })
 
 // const userStore = useUserStore()
+const router = useRouter()
 const formElement = ref<FormInstance>()
 
 const login = async () => {
   if (!formElement.value) return
   formElement.value.validate(async (ok) => {
     if (ok) {
+      form.loading = true
       const user = await api.getUser(form.username)
       if (user) {
+        console.log('🌊', user)
         const key = await mp.passwordKey(form.username, form.password)
         const username = await mp.decrypt(user.password_hash, key)
-        console.log('🌊', username === form.username)
+        if (username === form.username) {
+          mp.indexdb.setUser(username, key)
+          router.replace('/me')
+        } else {
+          mp.error('wrong username or password')
+        }
       } else {
-        mp.error('user not found')
+        mp.error('username not found')
       }
+      form.loading = false
     }
   })
 

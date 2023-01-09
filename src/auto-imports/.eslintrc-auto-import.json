@@ -74,6 +74,8 @@
     "useI18n": true,
     "useIndex": true,
     "useLink": true,
+    "useLogin": true,
+    "useMe": true,
     "useRegister": true,
     "useRoute": true,
     "useRouter": true,

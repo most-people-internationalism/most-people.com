@@ -22,7 +22,9 @@
 </template>
 
 <script setup lang="ts">
-mp.indexdb.init()
+onMounted(() => {
+  mp.indexdb.init()
+})
 </script>
 
 <style lang="scss">

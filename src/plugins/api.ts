@@ -44,7 +44,7 @@ axios.interceptors.response.use(
 )
 
 export interface Note {
-  note_id: number
+  id: number
   user_id: number
   title: string
   list: string[]
@@ -55,11 +55,13 @@ export interface Note {
 }
 
 export interface User {
-  user_id: number
+  id: number
   name: string
   password_hash: string
   sign_time: string
 
+  avatar?: string
+  phone?: string
   task_list?: string[]
   task_history?: string[]
   motto?: string

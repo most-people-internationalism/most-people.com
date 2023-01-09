@@ -4,22 +4,24 @@
       <div
         class="btn left"
         @click="logo.prev"
-        :style="{ visibility: engine.index <= 0 ? 'hidden' : 'visible' }"
+        :style="{ visibility: engineStore.index <= 0 ? 'hidden' : 'visible' }"
       >
         <mp-icon name="back" />
       </div>
       <div
         class="center"
-        :style="`--color: ${engine.now.color}`"
-        :class="{ outWall: engine.now.out_wall && !user.out_wall }"
+        :style="`--color: ${engineStore.now.color}`"
+        :class="{ outWall: engineStore.now.out_wall && !userStore.out_wall }"
       >
-        <mp-icon-app :name="engine.now.icon" />
-        <span>{{ $t(engine.now.name) }}</span>
+        <mp-icon-app :name="engineStore.now.icon" />
+        <span>{{ $t(engineStore.now.name) }}</span>
       </div>
       <div
         class="btn right"
         @click="logo.next"
-        :style="{ visibility: engine.index >= engine.ids.length - 1 ? 'hidden' : 'visible' }"
+        :style="{
+          visibility: engineStore.index >= engineStore.ids.length - 1 ? 'hidden' : 'visible',
+        }"
       >
         <mp-icon name="next" />
       </div>
@@ -63,16 +65,16 @@
     <div class="engines">
       <div
         class="engine"
-        :class="{ active: engine.now.id === e.id }"
-        :style="{ color: engine.now.id === e.id ? e.color : '' }"
-        v-for="(e, i) in engine.list"
+        :class="{ active: engineStore.now.id === e.id }"
+        :style="{ color: engineStore.now.id === e.id ? e.color : '' }"
+        v-for="(e, i) in engineStore.list"
         :key="e.id"
-        @click="engine.click(i)"
+        @click="engineStore.click(i)"
       >
         <mp-icon-app :name="e.icon" />
         <span>{{ $t(e.name) }}</span>
       </div>
-      <div class="engine add" @click="engine.add">+</div>
+      <div class="engine add" @click="engineStore.add">+</div>
     </div>
 
     <mp-task-list />
@@ -81,7 +83,7 @@
 
 <script setup lang="ts">
 import { useIndex } from '@/composables/useIndex'
-const { sugElement, search, logo, form, engine, user } = useIndex()
+const { sugElement, search, logo, form, engineStore, userStore } = useIndex()
 
 useHead({ title: computed(() => $t('MostPeople')) })
 </script>

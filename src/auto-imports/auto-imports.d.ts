@@ -75,6 +75,8 @@ declare global {
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useIndex: typeof import('../composables/useIndex')['useIndex']
   const useLink: typeof import('vue-router')['useLink']
+  const useLogin: typeof import('../composables/useLogin')['useLogin']
+  const useMe: typeof import('../composables/useMe')['useMe']
   const useRegister: typeof import('../composables/useRegister')['useRegister']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']

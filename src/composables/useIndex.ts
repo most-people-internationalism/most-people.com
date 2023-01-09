@@ -1,8 +1,8 @@
 import { ElMessageBox } from 'element-plus'
 
 export const useIndex = () => {
-  const user = useUserStore()
-  const engine = useEngineStore()
+  const userStore = useUserStore()
+  const engineStore = useEngineStore()
 
   // data
   const form = reactive({
@@ -25,7 +25,7 @@ export const useIndex = () => {
         return
       }
       // 缓存关键字
-      user.keyword = keyword
+      userStore.keyword = keyword
       const url = 'https://sor.html5.qq.com/api/getsug?key=' + encodeURI(keyword)
       const script = document.createElement('script')
       script.src = url
@@ -44,24 +44,24 @@ export const useIndex = () => {
     survey() {
       const keyword = encodeURIComponent(form.keyword)
       let url = ''
-      if (user.isPC) {
-        url = engine.now.pc
+      if (userStore.isPC) {
+        url = engineStore.now.pc
         // 有关键字
         if (keyword) {
           url = url.replace(mp.re('#{keyword}'), keyword)
         } else {
-          url = engine.now.home_pc || mp.url(url).origin
+          url = engineStore.now.home_pc || mp.url(url).origin
         }
       } else {
-        url = engine.now.mobile || engine.now.pc
+        url = engineStore.now.mobile || engineStore.now.pc
         // 有关键字
         if (keyword) {
           url = url.replace(mp.re('#{keyword}'), keyword)
         } else {
-          url = engine.now.home_mobile || mp.url(url).origin
+          url = engineStore.now.home_mobile || mp.url(url).origin
         }
       }
-      if (!engine.now.pc && engine.now.app) {
+      if (!engineStore.now.pc && engineStore.now.app) {
         ElMessageBox.alert('该引擎只有APP端可用', '提示', {
           confirmButtonText: '确定',
         })
@@ -107,10 +107,10 @@ export const useIndex = () => {
   }
   const logo = {
     prev() {
-      if (engine.index > 0) engine.index -= 1
+      if (engineStore.index > 0) engineStore.index -= 1
     },
     next() {
-      if (engine.index < engine.ids.length - 1) engine.index += 1
+      if (engineStore.index < engineStore.ids.length - 1) engineStore.index += 1
     },
   }
 
@@ -133,7 +133,7 @@ export const useIndex = () => {
     search,
     logo,
     form,
-    engine,
-    user,
+    engineStore,
+    userStore,
   }
 }

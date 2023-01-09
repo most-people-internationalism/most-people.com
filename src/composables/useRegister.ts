@@ -45,9 +45,9 @@ export const useRegister = () => {
   }
   // submit
   const submit = async (username: string, password: string) => {
-    const passwordKdf = mp.passwordKdf(username, password)
-    const passwordHash = mp.passwordHash(passwordKdf)
-    const user = await api.register(username, passwordHash)
+    const key = await mp.passwordKey(username, password)
+    const password_hash = await mp.encrypt(username, key)
+    const user = await api.register(username, password_hash)
     console.log('🌊', user)
     // formElement.value?.resetFields()
   }

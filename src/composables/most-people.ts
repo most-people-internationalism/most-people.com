@@ -32,22 +32,6 @@ export const mp = {
     ])
     return key
   },
-  passwordKdf(username: string, password: string) {
-    const p = utils.toUtf8Bytes(password)
-    const salt = utils.toUtf8Bytes('/mp/' + username)
-    const kdf = pbkdf2(p, salt, 1, 256 / 8, 'sha512')
-    return kdf
-  },
-  // 服务器密码哈希
-  passwordHash(passwordKdf: string) {
-    const pepper = Wallet.createRandom().privateKey
-    return pepper + '.' + sha3_256(passwordKdf + pepper)
-  },
-  // 验证
-  passwordVerify(passwordKdf: string, passwordHash: string) {
-    const [pepper, hash] = passwordHash.split('.')
-    return hash === sha3_256(passwordKdf + pepper)
-  },
   // 加密
   async encrypt(text: string, key?: CryptoKey) {
     if (!key) {

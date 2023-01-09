@@ -20,8 +20,6 @@
       <router-link to="/login">
         <el-button type="primary">登录</el-button>
       </router-link>
-      <br />
-      <br />
       <router-link to="/register">
         <el-button>注册</el-button>
       </router-link>
@@ -39,4 +37,13 @@ const exit = () => {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+#page-me {
+  .not-login {
+    text-align: center;
+    a + a {
+      margin-left: 40px;
+    }
+  }
+}
+</style>

@@ -1,3 +1,4 @@
+import { errorCode } from '@/plugins/api'
 import { ElMessageBox, type FormInstance } from 'element-plus'
 
 export const useRegister = () => {
@@ -8,6 +9,7 @@ export const useRegister = () => {
     confirmPassword: '1234',
     loading: false,
   })
+  const router = useRouter()
   const formElement = ref<FormInstance>()
 
   // click
@@ -47,9 +49,12 @@ export const useRegister = () => {
   const submit = async (username: string, password: string) => {
     const key = await mp.passwordKey(username, password)
     const password_hash = await mp.encrypt(username, key)
-    const user = await api.register(username, password_hash)
-    console.log('🌊', user)
-    // formElement.value?.resetFields()
+    const ok = await api.register(username, password_hash)
+    if (ok) {
+      router.replace('/login')
+    } else {
+      mp.error('注册失败')
+    }
   }
 
   // check
@@ -63,8 +68,10 @@ export const useRegister = () => {
       form.usernameLoading = false
       if (ok) {
         callback()
+      } else if (ok === null) {
+        callback(new Error(errorCode[404]))
       } else {
-        callback(new Error('用户名已被占用'))
+        callback(new Error(errorCode[1001]))
       }
     })
   }

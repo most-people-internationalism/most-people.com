@@ -20,7 +20,7 @@
 const elements = ref<HTMLInputElement[]>()
 
 const form = reactive({
-  taskList: ['为了人类的崇高的理想而战'],
+  taskList: [''],
   focusIndex: -1,
 })
 

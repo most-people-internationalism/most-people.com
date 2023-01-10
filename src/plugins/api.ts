@@ -14,22 +14,26 @@ axios.interceptors.request.use(
   },
 )
 
-const showCode: { [key: string]: string } = {
+export const errorCode: { [key: string]: string } = {
   404: '请求失败，请检查网络',
+  1001: '用户名已存在',
+}
+
+const initError = (status: number) => {
+  const code = String(status)
+  if (errorCode[code]) {
+    mp.error(errorCode[code])
+  } else {
+    mp.error(`未知错误，错误码：${code}`)
+  }
 }
 
 export const initResponse = (response: AxiosResponse) => {
-  const status = response?.status || 404
-  // 2xx
+  const status = response?.data?.statusCode || response?.status || 404
   if (status >= 200 && status < 300) {
-    return response.data || null
+    return response.data
   } else {
-    const code = String(status)
-    if (showCode[code]) {
-      mp.error(showCode[code])
-    } else {
-      mp.error(`请求失败，错误码：${code}`)
-    }
+    initError(status)
     return null
   }
 }
